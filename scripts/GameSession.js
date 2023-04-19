@@ -34,7 +34,7 @@ class GameSession {
   }
 
   toggleRotateDevice() {
-    if (window.innerWidth < 810) {
+    if (window.innerWidth < 700) {
       ROTATE_DEVICE.style.display = "block";
       GAME_BOX.style.display = "none";
     } else {
