@@ -285,15 +285,18 @@ class GameSession {
    */
   serve() {
     console.log("serve queen");
-    let food = this.session.foodQueue[0];
-    if (this.session.foodQueue.length > 0) {
-      this.incrementMoney(food.sell);
-      this.removeFromFoodQueue();
-      if (this.session.foodQueue.length <= 0) {
-        this.toggleCanServe(false);
+    if (this.session.canServe) {
+      let food = this.session.foodQueue[0];
+      if (this.session.foodQueue.length > 0) {
+        this.incrementMoney(food.sell);
+        this.removeFromFoodQueue();
+        if (this.session.foodQueue.length <= 0) {
+          this.toggleCanServe(false);
+        }
       }
     }
   }
+
 }
 
 export default GameSession;
