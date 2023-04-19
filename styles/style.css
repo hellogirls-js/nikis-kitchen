@@ -557,7 +557,7 @@ html, body {
   }
 }
 
-@media screen and (max-width: 815px) {
+@media screen and (max-width: 1000px) {
   html, body {
     font-size: 10px;
   }
