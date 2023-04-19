@@ -113,7 +113,7 @@ class GameSession {
       if (NIKI.classList.contains("disabled") && this.session.stomach < 100) {
         this.toggleCanFeedNiki(true);
       }
-      if (SERVE_BUTTON.classList.contains("disabled") && this.session.stomach > 0) {
+      if (this.session.stomach > 0) {
         this.toggleCanServe(true);
       }
     }
@@ -129,10 +129,8 @@ class GameSession {
       let ing = ING_LIST.children.item(i);
       const food = FoodList[i];
       if (this.session.foodQueue.length <= 0) {
-        if (NIKI.classList.contains("enabled")) NIKI.classList.remove("enabled");
-        if (!NIKI.classList.contains("disabled")) NIKI.classList.add("disabled");
-        if (SERVE_BUTTON.classList.contains("enabled")) SERVE_BUTTON.classList.remove("enabled");
-        if (!SERVE_BUTTON.classList.contains("disabled")) SERVE_BUTTON.classList.add("disabled");
+        this.toggleCanFeedNiki(false);
+        this.toggleCanServe(false);
       }
       if (food.price < this.session.money && this.session.foodQueue.length + food.amount <= 10) {
         // if the user can still afford the food, enable the ingredient
@@ -169,17 +167,19 @@ class GameSession {
   incrementStomach(amt) {
     this.session.stomach += amt;
     STOMACH_BAR.style.width = `${this.session.stomach}%`;
-    if (this.session.stomach === 0 && SERVE_BUTTON.classList.contains("enabled")) {
+    if (this.session.stomach) {
       this.toggleCanServe(false);
     }
-    if (this.session.foodQueue.length > 0 && this.session.stomach > 0 && SERVE_BUTTON.classList.contains("disabled")) {
+    if (this.session.foodQueue.length > 0 && this.session.stomach > 0) {
       this.toggleCanServe(true);
     }
-    
-    if (this.session.stomach < 100 && this.session.foodQueue.length > 0 && NIKI.classList.contains("disabled")) {
+    let food = this.session.foodQueue[0];
+    if (food) {
+      if (this.session.stomach + food.fill <= 100 && this.session.foodQueue.length > 0) {
       this.toggleCanFeedNiki(true);
+     }
     }
-    if (this.session.stomach >= 100) {
+    if (this.session.stomach >= 100 || food === undefined) {
       this.toggleCanFeedNiki(false);
     }
 
@@ -208,7 +208,6 @@ class GameSession {
       STOMACH_BAR.classList.add("low");
       NIKI.classList.contains("normal") && NIKI.classList.remove("normal");
       NIKI.classList.add("hungry");
-      console.log(NIKI_IMG);
       NIKI_IMG.src = NIKI_HUNGRY_SRC;
       HUNGRY_SPEECH.classList.contains("hide") && HUNGRY_SPEECH.classList.remove("hide");
       HUNGRY_SPEECH.classList.add("show");
@@ -240,7 +239,7 @@ class GameSession {
    * @param {boolean} val the feed value
    */
   toggleCanFeedNiki(val) {
-    this.canFeed = val;
+    this.session.canFeed = val;
     if (val) {
       if (NIKI.classList.contains("disabled")) NIKI.classList.remove("disabled");
       NIKI.classList.add("enabled");
@@ -255,7 +254,7 @@ class GameSession {
    */
   feed() {
     let food = this.session.foodQueue[0];
-    if (this.session.stomach + food.fill <= 100 && this.session.foodQueue.length > 0) {
+    if (this.session.canFeed) {
       this.incrementStomach(food.fill);
       this.removeFromFoodQueue();
       if (this.session.stomach >= 100 || this.session.foodQueue.length === 0) {
@@ -270,7 +269,7 @@ class GameSession {
    * @param {boolean} val can serve value
    */
   toggleCanServe(val) {
-    this.canServe = val
+    this.session.canServe = val
     if (val) {
       if (SERVE_BUTTON.classList.contains("disabled")) SERVE_BUTTON.classList.remove("disabled")
       SERVE_BUTTON.classList.add("enabled");   
@@ -284,8 +283,8 @@ class GameSession {
    * remove the first item in the food queue and earn money
    */
   serve() {
-    console.log("serve queen");
     if (this.session.canServe) {
+      console.log("serve queen");
       let food = this.session.foodQueue[0];
       if (this.session.foodQueue.length > 0) {
         this.incrementMoney(food.sell);
