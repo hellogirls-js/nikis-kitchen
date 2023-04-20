@@ -701,8 +701,8 @@ html {
   }
 
   #game {
-    width: 90%;
-    height: 90%;
+    width: 95vw;
+    height: 98vh;
   }
 
   #game-content-neekee {
