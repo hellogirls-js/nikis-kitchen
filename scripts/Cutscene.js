@@ -36,6 +36,7 @@ export class Cutscene {
           dialogue.push(dialogueObj);
         }
         this.dialogue = dialogue;
+        this.formatTextbox();
       });
     
     for (let i = 0; i < this.cg_list.length; i++) {

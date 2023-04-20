@@ -74,7 +74,7 @@ html, body {
   padding: 0;
   width: 100%;
   max-width: 100%;
-  background-image: linear-gradient(#efdbff, #ffd0fb) ;
+  background-color: #efdbff;
   font-family: 'Nunito', sans-serif;
   font-size: 14px;
 }
@@ -93,8 +93,13 @@ html {
 }
 
 #loading {
-  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
   height: 100%;
+  left: 40%;
+  right: 40%;
+  top: 0;
 }
 
 #loading-circle {
@@ -111,9 +116,15 @@ html {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid var(--light-base);
-  border-color: var(--light-base) transparent var(--light-base) transparent;
+  border: 6px solid var(--purple);
+  border-color: var(--purple) transparent var(--purple) transparent;
   animation: loading 1.2s linear infinite;
+}
+
+#loading-text {
+  color: var(--purple);
+  font-size: 3rem;
+  font-weight: 600;
 }
 
 .sowwy-overlay {

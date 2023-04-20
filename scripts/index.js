@@ -6,6 +6,7 @@ import { CutsceneList } from "./Cutscene.js";
 const GAME = new GameSession();
 
 function initGame() {
+  LOADER.style.display = "none";
   CG_BOX.style.display = GAME.session.showCG ? "flex" : "none";
   GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
 
@@ -20,9 +21,6 @@ function initGame() {
     }
   });
 
-  if (GAME.session.showCG) {
-    CutsceneList[GAME.session.currentCGIndex].formatTextbox();
-  }
   MONEY_LABEL.innerHTML = GAME.session.money;
   STOMACH_BAR.style.width = `${GAME.session.stomach}%`;
   NIKI.onclick = () => {
