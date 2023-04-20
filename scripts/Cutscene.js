@@ -1,4 +1,4 @@
-import { CG_BOX, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME } from "./CONSTANTS.js";
+import { CG_BOX, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME, TEXTBOX_NEXT, TEXTBOX_TEXT } from "./CONSTANTS.js";
 
 export class Cutscene {
   /**
@@ -12,6 +12,7 @@ export class Cutscene {
     this.showTextbox = true;
     this.cgIndex = 0;
     this.dialogueIndex = 0;
+    this.closeCG = false;
 
     // generate dialogue
     fetch(`../text/script_${this.cgIndex + 1}.txt`)
@@ -36,6 +37,15 @@ export class Cutscene {
         }
         this.dialogue = dialogue;
       });
+    
+    for (let i = 0; i < this.cg_list.length; i++) {
+      const dirs = this.cg_list[(this.cg_list.length - 1) - i].split('/');
+      let cgDiv = document.createElement("div");
+      cgDiv.className = "cg-bg";
+      if (dirs[2] === "CUTSCENE_1" && dirs[3] == "cg_1.png") cgDiv.classList.add("cg-shake");
+      cgDiv.style.backgroundImage = `url("${this.cg_list[(this.cg_list.length - 1) - i]}")`;
+      CG_BOX.appendChild(cgDiv);
+    }
   }
     
 
@@ -44,8 +54,30 @@ export class Cutscene {
     this.setCG(this.cg_list[this.cgIndex]);
   }
 
-  setCG(src) {
-    CG_BOX.style.backgroundImage = `url("${src}")`;
+  changeDialogue() {
+    if (this.dialogueIndex + 1 <= this.dialogue.length) {
+      this.dialogueIndex++;
+      if (this.dialogue[this.dialogueIndex].name === undefined && this.dialogue[this.dialogueIndex].content === "/CHANGE/" && this.cgIndex + 1 <= this.cg_list.length) {
+        this.cgIndex++;
+        this.setCG(this.cg_list[this.cgIndex]);
+        TEXTBOX_CONTENT.style.visibility = "hidden";
+        TEXTBOX_NAME.innerHTML = "";
+        TEXTBOX_TEXT.innerHTML = "";
+      } else if (this.dialogue[this.dialogueIndex].name) {
+        if (TEXTBOX_CONTENT.style.visibility === "hidden") TEXTBOX_CONTENT.style.visibility = "visible";
+        this.formatTextbox();
+      } else {
+        console.log("We are fucked!");
+      }
+    }
+  }
+
+  setCG() {
+    let cgs = document.getElementsByClassName("cg-bg");
+    document.getElementsByClassName("cg-bg")[cgs.length - 1].classList.add("out");
+    setTimeout(() => {
+      document.getElementsByClassName("cg-bg")[cgs.length - 1].remove();
+    }, 500);
   }
 
   toggleTextbox(val) {
@@ -55,8 +87,8 @@ export class Cutscene {
 
   formatTextbox() {
     if (this.dialogue[this.dialogueIndex].name) {
-      TEXTBOX_NAME.innerHTML = this.dialogue[this.cgIndex].name;
-      TEXTBOX_CONTENT.innerHTML = this.dialogue[this.cgIndex].content;
+      TEXTBOX_NAME.innerHTML = this.dialogue[this.dialogueIndex].name;
+      TEXTBOX_TEXT.innerHTML = this.dialogue[this.dialogueIndex].content;
     }
   }
 }

@@ -1,4 +1,5 @@
 // bigger divs
+export const CONTAINER = document.getElementById("container");
 export const CG_BOX = document.getElementById("cg-overlay");
 export const GAME_BOX = document.getElementById("game");
 export const GAME_CONTAINER = document.getElementById("game-container");
@@ -13,13 +14,16 @@ export const FOOD_QUEUE = document.getElementById("stat-food-bar");
 
 // game content divs
 export const TEXTBOX = document.getElementById("cg-textbox");
+export const TEXTBOX_CONTENT = document.getElementById("cg-textbox-content");
 export const TEXTBOX_NAME = document.getElementById("cg-textbox-name");
-export const TEXTBOX_CONTENT = document.getElementById("cg-textbox-text");
+export const TEXTBOX_TEXT = document.getElementById("cg-textbox-text");
+export const TEXTBOX_NEXT = document.getElementById("cg-textbox-next");
 export const NIKI = document.getElementById("game-content-neekee");
 export const NIKI_IMG = document.getElementById("game-content-neekee-img");
 export const HUNGRY_SPEECH = document.getElementById("game-content-hungry-speech");
 export const SERVE_BUTTON = document.getElementById("game-content-serve");
 export const ING_LIST = document.getElementById("ing-list");
+export const SETTING_BUTTONS = document.getElementsByClassName("settings-button");
 
 // imgs
 export const NIKI_SRC = "../images/niki_sprites/niki_sprite.png";

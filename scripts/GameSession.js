@@ -14,8 +14,8 @@ class GameSession {
     customersServed: 0,
     canServe: false,
     canFeed: false,
-    showCG: false,
-    playGame: true,
+    showCG: true,
+    playGame: false,
     currentCGIndex: 0
   }
 
@@ -49,19 +49,20 @@ class GameSession {
    */
   togglePlayGame(val) {
     this.session.playGame = val;
+    if (val) this.decreaseStomachBar();
   }
 
   toggleShowCG(val) {
     this.session.showCG = val;
     GAME_CONTAINER.style.display = val ? "none" : "flex";
     CG_BOX.style.display = val ? "block" : "none";
-    CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
+    // CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
   }
 
   incrementCGIndex() {
     this.toggleShowCG(false);
     this.session.currentCGIndex++;
-    CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
+    // CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
   }
 
   /**
