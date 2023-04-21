@@ -96,6 +96,9 @@ export class Food {
     this.visible = val;
   }
 
+  /**
+   * append an item to the food queue
+   */
   createFoodQueueItem() {
     const foodItem = document.createElement("div");
     foodItem.className = `${this.name.toLowerCase()}-queue-item food-queue-item`;

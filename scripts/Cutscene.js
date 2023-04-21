@@ -39,6 +39,7 @@ export class Cutscene {
         this.formatTextbox();
       });
     
+    // add cg slides to the DOM
     for (let i = 0; i < this.cg_list.length; i++) {
       const dirs = this.cg_list[(this.cg_list.length - 1) - i].split('/');
       let cgDiv = document.createElement("div");
@@ -49,12 +50,17 @@ export class Cutscene {
     }
   }
     
-
+  /**
+   * go to the next CG when prompted
+   */
   changeCG() {
     this.cgIndex++;
     this.setCG(this.cg_list[this.cgIndex]);
   }
 
+  /**
+   * go to the next line of dialogue when the next button is clicked
+   */
   changeDialogue() {
     if (this.dialogueIndex + 1 <= this.dialogue.length) {
       this.dialogueIndex++;
@@ -73,6 +79,9 @@ export class Cutscene {
     }
   }
 
+  /**
+   * transition to the next CG by removing the previous one
+   */
   setCG() {
     let cgs = document.getElementsByClassName("cg-bg");
     document.getElementsByClassName("cg-bg")[cgs.length - 1].classList.add("out");
@@ -81,11 +90,18 @@ export class Cutscene {
     }, 500);
   }
 
+  /**
+   * 
+   * @param {boolean} val if val is true, show the textbox. otherwise, hide it
+   */
   toggleTextbox(val) {
     this.showTextbox = val;
     TEXTBOX.style.display = val ? "block" : "none";
   }
 
+  /**
+   * put content in the textbox
+   */
   formatTextbox() {
     if (this.dialogue[this.dialogueIndex].name) {
       TEXTBOX_NAME.innerHTML = this.dialogue[this.dialogueIndex].name;
@@ -96,4 +112,7 @@ export class Cutscene {
 
 export const CUTSCENE_1 = new Cutscene(0, ["../images/CUTSCENE_1/cg_1.png", "../images/CUTSCENE_1/cg_2.png", "../images/CUTSCENE_1/cg_3.png", "../images/CUTSCENE_1/cg_4.png", "../images/CUTSCENE_1/cg_5.png"]);
 
+/**
+ * list of cutscenes for the GameSession object to use
+ */
 export const CutsceneList = [CUTSCENE_1];

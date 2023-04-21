@@ -33,6 +33,9 @@ class GameSession {
     this.session.newGame = val;
   }
 
+  /**
+   * prompts the user to rotate their mobile device if they are on portrait mode
+   */
   toggleRotateDevice() {
     if (window.innerWidth < 660) {
       ROTATE_DEVICE.style.display = "block";
@@ -52,6 +55,10 @@ class GameSession {
     if (val) this.decreaseStomachBar();
   }
 
+  /**
+   * 
+   * @param {boolean} val if true, display a cutscene
+   */
   toggleShowCG(val) {
     this.session.showCG = val;
     GAME_CONTAINER.style.display = val ? "none" : "flex";
@@ -59,6 +66,9 @@ class GameSession {
     // CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
   }
 
+  /**
+   * go to the next cg when the previous cg is done
+   */
   incrementCGIndex() {
     this.toggleShowCG(false);
     this.session.currentCGIndex++;
@@ -88,6 +98,9 @@ class GameSession {
     }, 4000);
   }
 
+  /**
+   * go to the next restaurant level
+   */
   gainLevel() {
     this.session.level++;
   }
@@ -265,6 +278,7 @@ class GameSession {
   }
 
   // SERVING
+  
   /**
    * true if niki's stomach isn't empty and if there is a food queue
    * @param {boolean} val can serve value
