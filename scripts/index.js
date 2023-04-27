@@ -81,10 +81,6 @@ document.addEventListener("readystatechange", (e) => {
     INFO_CLOSE.addEventListener("mousedown", (e) => {
       GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
     });
-    INFO_OVERLAY_CONTAINER.addEventListener("click", (e) => {
-      e.preventDefault();
-      GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
-    });
     initGame();
     if (GAME.session.playGame) {
       GAME.decreaseStomachBar();

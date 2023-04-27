@@ -14,8 +14,8 @@ class GameSession {
     customersServed: 0,
     canServe: false,
     canFeed: false,
-    showCG: true,
-    playGame: false,
+    showCG: false,
+    playGame: true,
     currentCGIndex: 0
   }
 
@@ -52,7 +52,8 @@ class GameSession {
    * prompts the user to rotate their mobile device if they are on portrait mode
    */
   toggleRotateDevice() {
-    if (window.innerWidth < 660) {
+    let aspectRatio = window.innerWidth / window.innerHeight;
+    if (aspectRatio < 1) {
       ROTATE_DEVICE.style.display = "block";
       GAME_BOX.style.display = "none";
     } else {
@@ -196,7 +197,7 @@ class GameSession {
   incrementStomach(amt) {
     this.session.stomach += amt;
     STOMACH_BAR.style.width = `${this.session.stomach}%`;
-    if (this.session.stomach) {
+    if (this.session.stomach <= 0 || this.session.foodQueue.length <= 0) {
       this.toggleCanServe(false);
     }
     if (this.session.foodQueue.length > 0 && this.session.stomach > 0) {
