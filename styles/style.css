@@ -257,6 +257,7 @@ html {
   padding: 2%;
   max-height: 82%;
   overflow-y: scroll;
+  font-size: 1.2em;
 }
 
 .overlay-content h2 {
@@ -308,18 +309,25 @@ html {
   border-top: none;
 }
 
-#game-settings-buttons {
+#game-top-bar {
   z-index: 3;
   width: 99%;
   flex-basis: 6%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 10px;
-  background: linear-gradient(135deg,var(--subcolor) 25%, var(--dark-base) 25%);
+  background: linear-gradient(135deg,var(--subcolor) 33%, var(--dark-base) 33%);
   border-radius: 6px 6px 0px 0px;
   padding: 0.5%;
+}
+
+#game-settings-buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 #game-settings-buttons i {
@@ -327,6 +335,56 @@ html {
   padding: 10px;
   cursor: pointer;
   color: #d4c7df;
+}
+
+#stat-money {
+  width: 33%;
+  position: relative;
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+#stat-money-container {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 3%;
+}
+
+#stat-money-icon i {
+  background-color: var(--yellow);
+  border-radius: 50%;
+  color: var(--orange);
+}
+
+#stat-money-content {
+  color: var(--light-subcolor);
+}
+
+#stat-money-increment {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: 800;
+  bottom: 50%;
+  right: 10%;
+}
+
+#stat-money-increment.increase {
+  color: var(--green);
+}
+
+#stat-money-increment.decrease {
+  color: var(--red);
+}
+
+#stat-money-increment.show-inc {
+  display: block;
+  animation-name: showIncrement;
+  animation-duration: 3.5s;
+  transition: visibility 0.2s, transform 0.2s;
+}
+
+#stat-money-increment.hide-inc {
+  display: none;
 }
 
 /* CG */
@@ -439,73 +497,15 @@ html {
   width: 75%;
 }
 
-#game-stats {
+/* #game-stats {
   display: flex;
   flex-flow: row nowrap;
   gap: 10%;
-}
-
-#stat-money {
-  position: relative;
-  flex: 0 1 25%;
-  font-size: 4rem;
-  font-weight: 900;
-  /* padding-top: 2%; */
-}
-
-#stat-money-container {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 10%;
-  background-color: var(--subcolor);
-  padding: 2% 0% 2% 5%;
-  border-radius: 0px 0px 10px 0px;
-}
-
-#stat-money-icon i {
-  background-color: var(--yellow);
-  border-radius: 50%;
-  color: var(--orange);
-}
-
-#stat-money-content {
-  color: var(--light-subcolor);
-}
-
-#stat-money-increment {
-  position: absolute;
-  font-size: 1.2rem;
-  font-weight: 800;
-  bottom: 50%;
-  right: 2%;
-  /* text-shadow: -1px 1px 0 var(--light-base),
-				  1px 1px 0 var(--light-base),
-				 1px -1px 0 var(--light-base),
-				-1px -1px 0 var(--light-base); */
-}
-
-#stat-money-increment.increase {
-  color: var(--green);
-}
-
-#stat-money-increment.decrease {
-  color: var(--red);
-}
-
-#stat-money-increment.show-inc {
-  display: block;
-  animation-name: showIncrement;
-  animation-duration: 3.5s;
-  transition: visibility 0.2s, transform 0.2s;
-}
-
-#stat-money-increment.hide-inc {
-  display: none;
-}
+} */
 
 #stat-bars {
-  flex: 1 0 33%;
-  margin-right: 3%;
+  width: 50%;
+  margin-left: 40%;
   background: var(--dark-base);
   padding: 0% 2% 2% 2%;
   border-radius: 0px 0px 10px 10px;
