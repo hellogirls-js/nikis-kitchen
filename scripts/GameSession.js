@@ -14,8 +14,8 @@ class GameSession {
     customersServed: 0,
     canServe: false,
     canFeed: false,
-    showCG: false,
-    playGame: true,
+    showCG: true,
+    playGame: false,
     currentCGIndex: 0
   }
 
