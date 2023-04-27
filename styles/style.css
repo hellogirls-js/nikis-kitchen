@@ -8,11 +8,16 @@
   --light-base: #f7f2fa;
   --light-subcolor: #dfd2e7;
   --red: #f368a2;
+  --red-darker: #da1768;
   --orange: #f59d6e;
+  --orange-darker: #eb6e2c;
   --yellow: #ffd176;
   --green: #afc742;
+  --green-darker: #859c00;
   --blue: #8d98fd;
+  --blue-darker: #5347ff;
   --purple: #bc6aff;
+  --purple-darker: #982bff;
 }
 
 /* KEYFRAMES */
@@ -166,6 +171,125 @@ html {
   cursor: pointer;
   font-size: 1.7rem;
   font-weight: 600;
+}
+
+.overlay-container {
+  z-index: 6;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #eff1f5aa;
+  backdrop-filter: blur(3px);
+}
+
+.overlay-container.show {
+  display: block;
+  transform: scale(100%);
+}
+
+.overlay-container.hide {
+  display: none;
+  transform: scale(0%)
+}
+
+.overlay {
+  display: block;
+  position: absolute;
+  z-index: 7;
+  width: 67vw;
+  max-width: 67vw;
+  height: 90vh;
+  max-height: 90vh;
+  background-image: url("./textbox_bg.png");
+  background-size: 15%;
+  background-color: var(--light-base);
+  color: var(--dark-base);
+  border: 5px solid var(--subcolor);
+  border-radius: 20px;
+  left: 16.5%;
+  right: 16.5%;
+  top: 3%;
+  bottom: 3%;
+  font-size: 1.2em;
+  transition: transform 1s;
+}
+
+.overlay.show {
+  display: block;
+  transform: scale(100%);
+}
+
+.overlay.hide {
+  display: none;
+  transform: scale(0%);
+}
+
+.overlay a:link, .overlay a:visited {
+  color: var(--green-darker);
+  font-weight: 600;
+}
+
+.overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1%;
+  background-color: var(--subcolor);
+  color: var(--light-base);
+  border-radius: 10px 10px 0px 0px;
+}
+
+.overlay-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.overlay-x {
+  cursor: pointer;
+}
+
+.overlay-x i {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.overlay-content {
+  padding: 2%;
+  max-height: 82%;
+  overflow-y: scroll;
+}
+
+.overlay-content h2 {
+  font-size: 1.8em;
+  font-weight: 800;
+  margin: 0;
+  margin-top: 1%;
+  color: var(--subcolor-2);
+  border-bottom: 3px solid var(--green-darker);
+}
+
+.overlay-content ol {
+  counter-reset: list;
+  padding: 0;
+}
+
+.overlay-content li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1%;
+}
+
+.overlay-content li::marker {
+  display: none;
+}
+
+.overlay-content li::before {
+  counter-increment: list;
+  content: counter(list)".";
+  margin-right: 0.5%;
+  color: var(--subcolor-2);
+  font-weight: 700;
+  font-size: 1.5em;
 }
 
 /* GAME FRAME */
@@ -714,6 +838,13 @@ html {
   #game {
     width: 95vw;
     height: 98vh;
+  }
+
+  .overlay {
+    width: 85vw;
+    max-width: 85vw;
+    left: 7.5%;
+    right: 7.5%;
   }
 
   #game-content-neekee {

@@ -62,7 +62,7 @@ export class Cutscene {
    * go to the next line of dialogue when the next button is clicked
    */
   changeDialogue() {
-    if (this.dialogueIndex + 1 <= this.dialogue.length) {
+    if (this.dialogueIndex + 1 < this.dialogue.length - 1) {
       this.dialogueIndex++;
       if (this.dialogue[this.dialogueIndex].name === undefined && this.dialogue[this.dialogueIndex].content === "/CHANGE/" && this.cgIndex + 1 <= this.cg_list.length) {
         this.cgIndex++;

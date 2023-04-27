@@ -34,6 +34,21 @@ class GameSession {
   }
 
   /**
+   * 
+   * @param {HTMLDivElement} container the container element to show
+   * @param {HTMLDivElement} overlay the overlay element to show
+   */
+  toggleSettingOverlay(container, overlay) {
+    if (container.classList.contains("hide")) {
+      container.classList.replace("hide", "show");
+      overlay.classList.replace("hide", "show");
+    } else {
+      container.classList.replace("show", "hide");
+      overlay.classList.replace("show", "hide");
+    }
+  }
+
+  /**
    * prompts the user to rotate their mobile device if they are on portrait mode
    */
   toggleRotateDevice() {
@@ -188,12 +203,13 @@ class GameSession {
       this.toggleCanServe(true);
     }
     let food = this.session.foodQueue[0];
+    let nextFood = this.session.foodQueue[1];
     if (food) {
       if (this.session.stomach + food.fill <= 100 && this.session.foodQueue.length > 0) {
       this.toggleCanFeedNiki(true);
      }
     }
-    if (this.session.stomach >= 100 || food === undefined) {
+    if ((nextFood !== undefined && this.session.stomach + nextFood.fill >= 100) || food === undefined) {
       this.toggleCanFeedNiki(false);
     }
 
@@ -268,10 +284,11 @@ class GameSession {
    */
   feed() {
     let food = this.session.foodQueue[0];
+    let nextFood = this.session.foodQueue[1];
     if (this.session.canFeed) {
       this.incrementStomach(food.fill);
       this.removeFromFoodQueue();
-      if (this.session.stomach >= 100 || this.session.foodQueue.length === 0) {
+      if ((nextFood !== undefined && this.session.stomach + nextFood.fill > 100) || this.session.foodQueue.length === 0) {
         this.toggleCanFeedNiki(false);
       }
     }

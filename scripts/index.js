@@ -1,6 +1,6 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
-import { CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, LOADER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
+import { CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
@@ -11,9 +11,10 @@ function initGame() {
   GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
 
   TEXTBOX_NEXT.addEventListener("click", () => { 
-    if (CutsceneList[GAME.session.currentCGIndex].dialogueIndex === CutsceneList[GAME.session.currentCGIndex].dialogue.length - 1) {
+    if (CutsceneList[GAME.session.currentCGIndex].dialogueIndex + 1 === CutsceneList[GAME.session.currentCGIndex].dialogue.length - 1) {
       // if the dialogue is finished switch out of CG mode
       GAME.toggleShowCG(false);
+      if (GAME.session.currentCGIndex === 0) GAME.setNewGame(false);
       GAME.incrementCGIndex();
       GAME.togglePlayGame(true);
     } else {
@@ -24,10 +25,14 @@ function initGame() {
   MONEY_LABEL.innerHTML = GAME.session.money;
   STOMACH_BAR.style.width = `${GAME.session.stomach}%`;
   NIKI.onclick = () => {
-    GAME.feed();
+    if (GAME.session.canFeed) {
+      GAME.feed();
+    }
   }
   SERVE_BUTTON.onclick = () => {
-    GAME.serve();
+    if (GAME.session.canServe) {
+      GAME.serve();
+    }
   }
   FoodList.forEach(food => {
     food.createIngredientBox(GAME);
@@ -65,12 +70,21 @@ document.addEventListener("readystatechange", (e) => {
     GAME_BOX.style.display = "none";
     LOADER.style.display = "block";
   } else {
-    for (let i = 0; i < SETTING_BUTTONS.length; i++) {
+    for (let i = 0; i < SETTING_BUTTONS.length - 1; i++) {
       SETTING_BUTTONS[i].addEventListener("click", (e) => { 
-        console.log("clicky");
         showSowwyOverlay(); 
       });
     }
+    INFO_SETTING_BUTTON.addEventListener("click", (e) => {
+      GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
+    });
+    INFO_CLOSE.addEventListener("mousedown", (e) => {
+      GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
+    });
+    INFO_OVERLAY_CONTAINER.addEventListener("click", (e) => {
+      e.preventDefault();
+      GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
+    });
     initGame();
     if (GAME.session.playGame) {
       GAME.decreaseStomachBar();

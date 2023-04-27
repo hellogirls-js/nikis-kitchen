@@ -5,6 +5,12 @@ export const GAME_BOX = document.getElementById("game");
 export const GAME_CONTAINER = document.getElementById("game-container");
 export const LOADER = document.getElementById("loading");
 export const ROTATE_DEVICE = document.getElementById("rotate-device-overlay");
+export const OVERLAY_CONTAINERS = document.getElementsByClassName("overlay-container");
+export const OVERLAYS = document.getElementsByClassName("overlay");
+export const OVERLAY_CLOSE = document.getElementsByClassName("overlay-x");
+export const INFO_OVERLAY_CONTAINER = document.getElementById("info-overlay-container");
+export const INFO_OVERLAY = document.getElementById("info-overlay");
+export const INFO_CLOSE = document.getElementById("info-overlay-x");
 
 // stat divs
 export const MONEY_LABEL = document.getElementById("stat-money-content");
@@ -24,6 +30,7 @@ export const HUNGRY_SPEECH = document.getElementById("game-content-hungry-speech
 export const SERVE_BUTTON = document.getElementById("game-content-serve");
 export const ING_LIST = document.getElementById("ing-list");
 export const SETTING_BUTTONS = document.getElementsByClassName("settings-button");
+export const INFO_SETTING_BUTTON = document.getElementById("info-button");
 
 // imgs
 export const NIKI_SRC = "../images/niki_sprites/niki_sprite.png";

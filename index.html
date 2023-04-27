@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta charset="UTF-8">
-    <title>idol niki → idle niki</title>
+    <title>Idol Niki → Idle Niki!</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <script>
@@ -20,16 +20,42 @@
         </ul>
       </nav> -->
       <div id="rotate-device-overlay"><img src="/images/niki_sprites/rotatepls.png" alt="please rotate your device!"/></div>
-      <div id="settings-overlay" style="display: none;"></div>
-      <div id="achievements-overlay" style="display: none;"></div>
+      <div id="settings-overlay" class="overlay" style="display: none;"></div>
+      <div id="achievements-overlay" class="overlay" style="display: none;"></div>
+      <div id="info-overlay-container" class="overlay-container hide">
+        <div id="info-overlay" class="overlay hide">
+          <div id="info-overlay-header" class="overlay-header">
+            <div id="info-overlay-title" class="overlay-title">About Idol Niki → Idle Niki!</div>
+            <div id="info-overlay-x" class="overlay-x"><i class="ti ti-x"></i></div>
+          </div>
+          <div id="info-overlay-content" class="overlay-content">
+            <h2>How to play</h2>
+            <ol>
+              <li>Each player starts off with $200. Use this money to buy ingredients and fill your food queue. You can fit up to ten (10) food items in the food queue.</li>
+              <li>Click the Serve button to serve an item from the food queue to customers. This will earn you money which you can save for future upgrades, improvements, and plot events.</li>
+              <li>Be wary of Niki's stomach! If his stomach empties, then you can't serve customers. Use items from the food queue to feed Niki and bring his energy back to keep serving.</li>
+            </ol>
+            <h2>Questions or issues?</h2>
+            <p>If you encounter a bug, feel free to leave an issue on <a href="https://github.com/hellogirls-js/nikis-kitchen/issues" target="_blank">GitHub</a> or message me on <a href="https://retrospring.net/@hellogirls" target="_blank">Retrospring</a>.</p>
+            <p>For general questions, reach out on <a href="https://retrospring.net/@hellogirls" target="_blank">Retrospring</a> or DM me on <a href="https://twitter.com/HELLOGlRLS" target="_blank">Twitter</a>.</p>
+            <p>Please don't ask for feature requests as I have my own vision for the development of this game, I will most likely ignore them.</p>
+            <h2>About the developer</h2>
+            <p>I'm <a href="https://twitter.com/HELLOGlRLS" target="_blank">son</a> and I'm a Javascript enthusiast. I wanted to get my hands on some Javascript and decided to make a game based on my favorite Ensemble Stars character. It might be simple, but I hope you all will enjoy it regardless. If you like what I'm doing, you can <a href="https://www.buymeacoffee.com/hellogirls" target="_blank">buy me a coffee</a>!</p>
+            <h2>Disclaimer</h2>
+            <p>None of these characters belong to me. They belong to Happy Elements and Ensemble Stars.</p>
+          </div>
+        </div>
+        
+      </div>
       <div id="loading" style="display: block;">
         <div id="loading-circle"></div>
         <div id="loading-text">Loading...</div>
       </div>
       <div id="game" style="display: none;">
         <div id="game-settings-buttons">
-          <div class="settings-button"><i class="ti ti-settings-filled"></i></div>
-          <div class="settings-button"><i class="ti ti-trophy-filled"></i></div>
+          <div id="settings-button" class="settings-button"><i class="ti ti-settings-filled"></i></div>
+          <div id="achivement-button" class="settings-button"><i class="ti ti-trophy-filled"></i></div>
+          <div id="info-button" class="settings-button"><i class="ti ti-info-circle"></i></div>
         </div>
         <div id="cg-overlay">
           <div id="cg-textbox" class="textbox">
