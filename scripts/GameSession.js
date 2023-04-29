@@ -12,6 +12,7 @@ class GameSession {
     stomach: 100,
     stomachInterval: 500,
     customersServed: 0,
+    foodTypesServed: [{foodId: 0, amtServed: 0}],
     canServe: false,
     canFeed: false,
     showCG: true,
@@ -313,6 +314,15 @@ class GameSession {
   }
 
   /**
+   * 
+   * @param {Food} food food that was served
+   */
+  addFoodTypeServed(food) {
+    const index = this.session.foodTypesServed.findIndex(type => type.foodId === food.index);
+    this.session.foodTypesServed[index].amtServed++;
+  }
+
+  /**
    * remove the first item in the food queue and earn money
    */
   serve() {
@@ -321,7 +331,9 @@ class GameSession {
       let food = this.session.foodQueue[0];
       if (this.session.foodQueue.length > 0) {
         this.incrementMoney(food.sell);
+        this.addFoodTypeServed(food);
         this.removeFromFoodQueue();
+        this.session.customersServed++;
         if (this.session.foodQueue.length <= 0) {
           this.toggleCanServe(false);
         }
