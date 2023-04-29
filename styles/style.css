@@ -328,6 +328,7 @@ html {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-end;
+  align-self: flex-end;
 }
 
 #game-settings-buttons i {
@@ -347,6 +348,7 @@ html {
 #stat-money-container {
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
   gap: 3%;
 }
 
@@ -361,7 +363,6 @@ html {
 }
 
 #stat-money-increment {
-  position: absolute;
   font-size: 1.2rem;
   font-weight: 800;
   bottom: 50%;
@@ -469,8 +470,12 @@ html {
   animation: next 0.5s linear 0s infinite alternate;
 }
 
+#cg-textbox-next:hover {
+  transform: scale(1.05);
+}
+
 #cg-textbox-next:active {
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 
 #cg-textbox-next i {
@@ -653,7 +658,7 @@ html {
   top: 33%;
   right: 33%;
   user-select: none;
-  transition: background-image 0.2s;
+  transition: background-image 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 #game-content-serve.disabled {
@@ -669,8 +674,14 @@ html {
   box-shadow: 0px 0px 10px var(--light-base);
 }
 
+#game-content-serve.enabled:hover {
+  box-shadow: 0px 0px 15px var(--light-base);
+  transform: scale(1.05);
+}
+
 #game-content-serve.enabled:active {
   background-color: #9ab32c;
+  transform: scale(0.95);
 }
 
 #game-content-serve.enabled, #game-content-neekee.enabled {
@@ -726,6 +737,10 @@ html {
 
 #game-ingredients .ingredient.unlocked:hover {
   transform: scale(1.05);
+}
+
+#game-ingredients .ingredient.unlocked:active {
+  transform: scale(0.95);
 }
 
 #game-ingredients .ingredient.locked {

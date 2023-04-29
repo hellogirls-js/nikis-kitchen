@@ -1,6 +1,6 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
-import { CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
+import { CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
@@ -9,6 +9,7 @@ function initGame() {
   LOADER.style.display = "none";
   CG_BOX.style.display = GAME.session.showCG ? "flex" : "none";
   GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
+  MONEY_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
 
   TEXTBOX_NEXT.addEventListener("click", () => { 
     if (CutsceneList[GAME.session.currentCGIndex].dialogueIndex + 1 === CutsceneList[GAME.session.currentCGIndex].dialogue.length - 1) {

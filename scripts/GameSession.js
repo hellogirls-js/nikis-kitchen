@@ -1,4 +1,4 @@
-import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX } from "./CONSTANTS.js";
+import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, MONEY_CONTAINER } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -78,6 +78,7 @@ class GameSession {
   toggleShowCG(val) {
     this.session.showCG = val;
     GAME_CONTAINER.style.display = val ? "none" : "flex";
+    MONEY_CONTAINER.style.display = val ? "none" : "flex";
     CG_BOX.style.display = val ? "block" : "none";
     // CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
   }
