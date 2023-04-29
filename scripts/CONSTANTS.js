@@ -13,6 +13,7 @@ export const INFO_OVERLAY = document.getElementById("info-overlay");
 export const INFO_CLOSE = document.getElementById("info-overlay-x");
 
 // stat divs
+export const MONEY_CONTAINER = document.getElementById("stat-money-container");
 export const MONEY_LABEL = document.getElementById("stat-money-content");
 export const MONEY_INCREMENT = document.getElementById("stat-money-increment");
 export const STOMACH_BAR = document.getElementById("stat-stomach-bar");
