@@ -74,3 +74,5 @@ export const CharacterAchievements = [
   new Achievement(40, "Taking a risk...", "Have Rinne pay a visit"),
   new Achievement(41, "Thank you, Kohaku-chan!", "Recruit Kohaku")
 ];
+
+export const Achievments = [FoodAchievements, MoneyAchievements, ServeAchievements, FeedAchievements, CharacterAchievements].flat();
