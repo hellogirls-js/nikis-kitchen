@@ -1,5 +1,5 @@
 import { Achievments } from "./Achievement.js";
-import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXT } from "./CONSTANTS.js";
+import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -40,7 +40,7 @@ class GameSession {
   }
 
   /**
-   * 
+   * show or hide the overlay
    * @param {HTMLDivElement} container the container element to show
    * @param {HTMLDivElement} overlay the overlay element to show
    */
@@ -124,7 +124,9 @@ class GameSession {
     console.log("w!");
     let ach = Achievments.find(a => a.id === i);
     ach.unlock();
-    ACHIEVEMENT_TEXT.innerHTML = ach.name;
+    ACHIEVEMENT_TEXTBOX.innerHTML = ach.name;
+    ACH_TOOLTIP_TITLE.innerHTML = ach.name;
+    ACH_TOOLTIP_DESC.innerHTML = ach.description;
     if (ACHIEVEMENT.classList.contains("hide")) ACHIEVEMENT.classList.remove("hide");
     ACHIEVEMENT.classList.add("show");
   }

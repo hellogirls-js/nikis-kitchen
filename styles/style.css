@@ -401,9 +401,18 @@ html {
   display: none;
 }
 
-#game-achievement-container {
+#game-achievement-box {
+  display: block;
   position: relative;
   flex-basis: 40%;
+  min-height: 50%;
+  height: 50%;
+  max-height: 100%;
+}
+
+#game-achievement-container {
+  height: 100%;
+  min-height: 100%;
   background-color: #20132b;
   border-radius: 10px 10px 10px 10px;
   border-left: 2px solid var(--subcolor);
@@ -411,18 +420,19 @@ html {
   font-size: 1.4em;
   color: var(--green);
   padding: 0.5%;
-  min-height: 50%;
-  max-height: 100%;
   overflow: hidden;
 }
 
 #game-achievement-tooltip {
   position: absolute;
-  width: 100%;
+  width: 98%;
   transition: visibility 0.2s;
-  z-index: 10;
-  background-color: #f7f2fa;
+  z-index: 999;
+  background-color: #100718dc;
+  color: var(--light-base);
   top: 115%;
+  padding: 1%;
+  border-radius: 5px;
 }
 
 #game-achievement-tooltip.show {
@@ -433,9 +443,26 @@ html {
 #game-achievement-tooltip.hide {
   display: none;
   visibility: hidden;
+  height: 100%;
+}
+
+#achievement-tooltip-title {
+  display: flex;
+  font-weight: 700;
+  gap: 2%;
+}
+
+#achievement-tooltip-title-icon {
+  color: var(--yellow);
+}
+
+#achievement-tooltip-title-txt {
+  color: var(--green);
 }
 
 #game-achievement {
+  height: 100%;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -467,6 +494,7 @@ html {
   height: 100%;
   gap: 2%;
   font-weight: 500;
+  cursor: pointer;
 }
 
 #achievement-text-icon i {
