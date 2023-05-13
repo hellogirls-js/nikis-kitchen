@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/hellogirls-js/nikis-kitchen/issues"
   },
-  "homepage": "https://idleniki.hellogirls.info"
+  "homepage": "https://idleniki.hellogirls.info",
+  "dependencies": {
+    "eslint": "^8.40.0"
+  }
 }

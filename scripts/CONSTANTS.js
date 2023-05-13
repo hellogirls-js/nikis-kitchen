@@ -19,6 +19,9 @@ export const STOMACH_BAR = document.getElementById("stat-stomach-bar");
 export const FOOD_QUEUE = document.getElementById("stat-food-bar");
 
 // game content divs
+export const ACHIEVEMENT = document.getElementById("game-achievement");
+export const ACHIEVEMENT_TEXT = document.getElementById("achievement-text-box");
+export const ACHIEVEMENT_X = document.getElementById("achievement-x");
 export const TEXTBOX = document.getElementById("cg-textbox");
 export const TEXTBOX_CONTENT = document.getElementById("cg-textbox-content");
 export const TEXTBOX_NAME = document.getElementById("cg-textbox-name");

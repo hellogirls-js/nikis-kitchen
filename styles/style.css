@@ -71,6 +71,19 @@
   100% {margin: 0}
 }
 
+@keyframes showAchievement {
+  0% {display: none; visibility: hidden; transform: translateY(-200%);}
+  25% {transform: translateY(-100%);}
+  100% {display: flex; visibility: visible; transform: translateY(0%);}
+}
+
+@keyframes wiggleStar {
+  0% {transform: rotate(0deg)}
+  33% {transform: rotate(25deg)}
+  67% {transform: rotate(-25deg)}
+  100% {transform: rotate(0deg)}
+}
+
 /* ROOT */
 
 html, body {
@@ -312,7 +325,6 @@ html {
 #game-top-bar {
   z-index: 3;
   width: 99%;
-  flex-basis: 6%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -324,6 +336,7 @@ html {
 }
 
 #game-settings-buttons {
+  flex-basis: 17%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -338,10 +351,11 @@ html {
 }
 
 #stat-money {
-  width: 33%;
+  flex-basis: 33%;
   position: relative;
   font-size: 3rem;
   font-weight: 900;
+  user-select: none;
 }
 
 #stat-money-container {
@@ -385,6 +399,98 @@ html {
 
 #stat-money-increment.hide-inc {
   display: none;
+}
+
+#game-achievement-container {
+  position: relative;
+  flex-basis: 40%;
+  background-color: #20132b;
+  border-radius: 10px 10px 10px 10px;
+  border-left: 2px solid var(--subcolor);
+  border-top: 2px solid var(--subcolor);
+  font-size: 1.4em;
+  color: var(--green);
+  padding: 0.5%;
+  min-height: 50%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+#game-achievement-tooltip {
+  position: absolute;
+  width: 100%;
+  transition: visibility 0.2s;
+  z-index: 10;
+  background-color: #f7f2fa;
+  top: 115%;
+}
+
+#game-achievement-tooltip.show {
+  display: block;
+  visibility: visible;
+}
+
+#game-achievement-tooltip.hide {
+  display: none;
+  visibility: hidden;
+}
+
+#game-achievement {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: visibility 0.2s, margin-top 0.2s;
+}
+
+#game-achievement.show {
+  animation: showAchievement 0.5s linear 0s 1 forwards;
+}
+
+#game-achievement.hide {
+  display: none;
+  visibility: hidden;
+}
+
+#game-achievement.slideUp {
+  animation: showAchievement 0.5s linear 0.5s 1 backwards;
+}
+
+#game-achievement.close {
+  transition: visibility 0.2s;
+  visibility: hidden;
+}
+
+#achievement-text {
+  display: flex;
+  align-items: center;
+  flex: 1 0 50%;
+  height: 100%;
+  gap: 2%;
+  font-weight: 500;
+}
+
+#achievement-text-icon i {
+  color: var(--yellow);
+}
+
+#game-achievement.show #achievement-text-icon i {
+  transition: transform 0.2s;
+  animation: wiggleStar 1s linear 1s 3 forwards;
+}
+
+#achievement-text-box {
+  padding: 0% 0% 0% 0.5%;
+}
+
+#achievement-x {
+  cursor: pointer;
+  padding: 0% 0.5% 0% 0%;
+}
+
+#achievement-x i {
+  font-weight: 700;
+  font-size: 1.2em;
+  color: var(--subcolor-2);
 }
 
 /* CG */

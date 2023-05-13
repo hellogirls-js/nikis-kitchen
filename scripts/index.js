@@ -1,6 +1,6 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
-import { CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
+import { ACHIEVEMENT, ACHIEVEMENT_X, CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
@@ -33,6 +33,9 @@ function initGame() {
     if (GAME.session.canServe) {
       GAME.serve();
     }
+  }
+  ACHIEVEMENT_X.onclick = () => {
+    GAME.closeAchievement();
   }
   FoodList.forEach(food => {
     food.createIngredientBox(GAME);

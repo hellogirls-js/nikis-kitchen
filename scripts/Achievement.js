@@ -17,6 +17,10 @@ export class Achievement {
   unlock() {
     this.unlocked = true;
   }
+
+  getId() {
+    return this.id;
+  }
 }
 
 export const FoodAchievements = [
