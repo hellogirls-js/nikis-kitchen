@@ -306,6 +306,70 @@ html {
   font-size: 1.5em;
 }
 
+#achievement-overlay-grid {
+  display: grid;
+  grid-template-columns: 18% 18% 18% 18% 18%;
+  gap: 1% 2%;
+  margin: auto;
+}
+
+.ach-grid-cell {
+  margin: auto;
+  width: 100%;
+  height: 25vh;
+  padding: 2%;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px #30243a22;
+}
+
+.ach-grid-cell.locked {
+  background-color: #c8cdff;
+  color: #8b95f0;
+}
+
+.ach-grid-cell.unlocked {
+  background-color: #fff;
+  color: var(--subcolor);
+}
+
+
+.ach-grid-cell .ach-grid-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 3em;
+  border-radius: 50%;
+  width: 1.7em;
+  height: 1.7em;
+  text-align: center;
+}
+
+.ach-grid-cell.unlocked .ach-grid-icon {
+  color: var(--yellow);
+  font-size: 2em;
+}
+
+.ach-grid-cell .ach-grid-title {
+  font-weight: 800;
+  text-align: center;
+  margin-top: 1%;
+}
+
+.ach-grid-cell.locked .ach-grid-title {
+  font-size: 1.5em;
+}
+
+.ach-grid-cell.unlocked .ach-grid-title {
+  font-size: 1.2em;
+  color: var(--green-darker);
+}
+
+.ach-grid-cell .ach-grid-desc {
+  text-align: center;
+  font-size: 0.8em;
+}
+
 /* GAME FRAME */
 
 #game {

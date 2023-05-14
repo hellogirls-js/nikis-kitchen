@@ -46,11 +46,21 @@ class GameSession {
    */
   toggleSettingOverlay(container, overlay) {
     if (container.classList.contains("hide")) {
+      if (container.id === "achievements-overlay-container") {
+        Achievments.forEach(ach => {
+          ach.createAchievementCell();
+        })
+      }
+      this.togglePlayGame(false);
       container.classList.replace("hide", "show");
       overlay.classList.replace("hide", "show");
     } else {
       container.classList.replace("show", "hide");
       overlay.classList.replace("show", "hide");
+      if (container.id === "achievements-overlay-container") {
+        document.getElementById("achievement-overlay-grid").innerHTML = "";
+      }
+      this.togglePlayGame(true);
     }
   }
 
@@ -74,7 +84,11 @@ class GameSession {
    */
   togglePlayGame(val) {
     this.session.playGame = val;
-    if (val) this.decreaseStomachBar();
+    if (val) {
+      this.decreaseStomachBar();
+    } else {
+      this.pauseStomachBar();
+    }
   }
 
   /**
@@ -300,15 +314,28 @@ class GameSession {
     this.unlockAchievement(this.session.stomach <= 0, 29);
   }
 
+  stomachInterval = setInterval(() => {
+    if (this.stomach > 0) {
+      this.incrementStomach(-1);
+    }
+  }, this.stomachInterval);
+
   /**
     * decrease the stomach bar value at an interval set by the game
     */
   decreaseStomachBar() {
-    setInterval(() => {
+    this.stomachInterval = setInterval(() => {
       if (this.session.stomach > 0) {
         this.incrementStomach(-1);
       }
     }, this.session.stomachInterval);
+  }
+
+  /**
+   * pause the stomach bar
+   */
+  pauseStomachBar() {
+    clearInterval(this.stomachInterval);
   }
 
   /**

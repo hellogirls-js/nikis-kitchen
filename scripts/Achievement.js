@@ -21,6 +21,27 @@ export class Achievement {
   getId() {
     return this.id;
   }
+
+  createAchievementCell() {
+    const cellContainer = document.createElement("div");
+    cellContainer.className = "ach-grid-cell";
+    cellContainer.classList.add(this.unlocked ? "unlocked" : "locked");
+    const cellIconContainer = document.createElement("div");
+    cellIconContainer.className = "ach-grid-icon";
+    const cellIcon = document.createElement("i");
+    cellIcon.className = this.unlocked ? "ti ti-star-filled" : "ti ti-lock";
+    cellIconContainer.appendChild(cellIcon);
+    const cellTitle = document.createElement("div");
+    cellTitle.className = "ach-grid-title";
+    cellTitle.innerHTML = this.unlocked ? this.name : "???";
+    const cellDesc = document.createElement("div");
+    cellDesc.className = "ach-grid-desc";
+    cellDesc.innerHTML = this.unlocked ? this.description : "This achievement is locked";
+    cellContainer.appendChild(cellIconContainer);
+    cellContainer.appendChild(cellTitle);
+    cellContainer.appendChild(cellDesc);
+    document.getElementById("achievement-overlay-grid").appendChild(cellContainer);
+  }
 }
 
 export const FoodAchievements = [
