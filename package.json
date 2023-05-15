@@ -1,0 +1,23 @@
+{
+  "name": "nikis-kitchen",
+  "version": "0.1.0",
+  "description": "incremental clicker game inspired by niki shiina from ensemble stars",
+  "main": "index.js",
+  "scripts": {
+    "start": "python3 -m http.server",
+    "test": "jest tests/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellogirls-js/nikis-kitchen.git"
+  },
+  "author": "son HELLOGlRLS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hellogirls-js/nikis-kitchen/issues"
+  },
+  "homepage": "https://idleniki.hellogirls.info",
+  "dependencies": {
+    "eslint": "^8.40.0"
+  }
+}
