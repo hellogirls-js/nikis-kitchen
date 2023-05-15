@@ -16,6 +16,7 @@ export const ACHIEVEMENT_OVERLAY = document.getElementById("achievements-overlay
 export const ACHIEVEMENT_OVERLAY_CLOSE = document.getElementById("achievements-overlay-x");
 
 // stat divs
+export const MONEY_CONTAINER = document.getElementById("stat-money-container");
 export const MONEY_LABEL = document.getElementById("stat-money-content");
 export const MONEY_INCREMENT = document.getElementById("stat-money-increment");
 export const STOMACH_BAR = document.getElementById("stat-stomach-bar");

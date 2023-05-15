@@ -9,6 +9,7 @@ function initGame() {
   LOADER.style.display = "none";
   CG_BOX.style.display = GAME.session.showCG ? "flex" : "none";
   GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
+  MONEY_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
 
   TEXTBOX_NEXT.addEventListener("click", () => { 
     if (CutsceneList[GAME.session.currentCGIndex].dialogueIndex + 1 === CutsceneList[GAME.session.currentCGIndex].dialogue.length - 1) {

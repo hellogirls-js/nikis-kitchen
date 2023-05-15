@@ -98,6 +98,7 @@ class GameSession {
   toggleShowCG(val) {
     this.session.showCG = val;
     GAME_CONTAINER.style.display = val ? "none" : "flex";
+    MONEY_CONTAINER.style.display = val ? "none" : "flex";
     CG_BOX.style.display = val ? "block" : "none";
     // CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
   }
