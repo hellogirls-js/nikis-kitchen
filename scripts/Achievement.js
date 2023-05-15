@@ -51,7 +51,7 @@ export const FoodAchievements = [
   new Achievement(4, "Firehouse Subs", "Serve 200 sandwiches"),
   new Achievement(5, "Potbelly", "Serve 500 sandwiches"),
   new Achievement(6, "Subway has gone out of business", "Serve 1000 sandwiches"),
-  new Achievement(7, "Popping off", "Sell 5 bottles of soda"),
+  new Achievement(7, "Poppin' off", "Sell 10 bottles of soda"),
   new Achievement(8, "Is it soda, pop, or coke?", "Sell 50 bottles of soda"),
   new Achievement(9, "One hundred bottles of pop on the wall", "Sell 100 bottles of soda"),
   new Achievement(10, "Micky D's Sprite connoisseur", "Sell 200 bottles of soda"),
