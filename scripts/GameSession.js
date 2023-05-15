@@ -18,10 +18,8 @@ class GameSession {
     foodTypesServed: [{foodId: 0, amtServed: 0}, {foodId: 1, amtFed: 0}],
     canServe: false,
     canFeed: false,
-    // showCG: true,
-    // playGame: false,
-    showCG: false,
-    playGame: true,
+    showCG: true,
+    playGame: false,
     currentCGIndex: 0
   }
 
