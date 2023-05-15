@@ -762,15 +762,19 @@ html {
 
 .food-queue-item {
   margin: 0% 1%;
-}
-
-.sandwich-queue-item {
   width: 25px;
   height: 25px;
-  background-image: url("../images/food_sprites/sandwich_sprite.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+}
+
+.sandwich-queue-item {
+  background-image: url("../images/food_sprites/sandwich_sprite.png");
+}
+
+.soda-queue-item {
+  background-image: url("../images/food_sprites/soda_sprite.png");
 }
 
 #game-content {
@@ -913,6 +917,7 @@ html {
   box-shadow: 4px 4px 0px var(--light-subcolor);
   transition: transform 0.1s;
   font-size: 1.2rem;
+  margin-bottom: 5%;
 }
 
 #game-ingredients .ingredient.unlocked {

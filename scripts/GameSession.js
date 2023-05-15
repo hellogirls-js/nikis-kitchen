@@ -14,8 +14,8 @@ class GameSession {
     stomachInterval: 500,
     customersServed: 0,
     feedAmt: 0,
-    foodTypesFed: [{foodId: 0, amtFed: 0}],
-    foodTypesServed: [{foodId: 0, amtServed: 0}],
+    foodTypesFed: [{foodId: 0, amtFed: 0}, {foodId: 1, amtFed: 0}],
+    foodTypesServed: [{foodId: 0, amtServed: 0}, {foodId: 1, amtFed: 0}],
     canServe: false,
     canFeed: false,
     // showCG: true,
@@ -219,6 +219,7 @@ class GameSession {
    * remove first item from food queue
    */
   removeFromFoodQueue() {
+    console.log(this.session.foodQueue, FOOD_QUEUE);
     this.session.foodQueue.shift();
     FOOD_QUEUE.removeChild(FOOD_QUEUE.firstElementChild);
     for (let i = 0; i < ING_LIST.children.length; i++) {
@@ -430,7 +431,13 @@ class GameSession {
    */
   addFoodTypeServed(food) {
     const index = this.session.foodTypesServed.findIndex(type => type.foodId === food.index);
-    this.session.foodTypesServed[index].amtServed++;
+    this.session.foodTypesServed[index].amtServed++; 
+    this.unlockAchievement(index === 0 && this.session.foodTypesServed[index].amtServed >= 10, 1);
+    this.unlockAchievement(index === 0 && this.session.foodTypesServed[index].amtServed >= 50, 2);
+    this.unlockAchievement(index === 0 && this.session.foodTypesServed[index].amtServed >= 100, 3);
+    this.unlockAchievement(index === 0 && this.session.foodTypesServed[index].amtServed >= 200, 4);
+    this.unlockAchievement(index === 0 && this.session.foodTypesServed[index].amtServed >= 500, 5);
+    this.unlockAchievement(index === 0 && this.session.foodTypesServed[index].amtServed >= 1000, 6);
   }
 
   /**
@@ -450,6 +457,7 @@ class GameSession {
         this.unlockAchievement(this.session.customersServed >= 1000, 21);
         this.unlockAchievement(this.session.customersServed >= 5000, 22);
         this.unlockAchievement(this.session.unlockAchievement >= 10000, 23);
+        this.unlockAchievement
         if (this.session.foodQueue.length <= 0) {
           this.toggleCanServe(false);
         }

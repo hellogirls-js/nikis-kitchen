@@ -107,6 +107,6 @@ export class Food {
 }
 
 export const Sandwich = new Food(0, "Sandwich", 10, 10, "Makes 5 sandwiches", 5, 10, true, true);
-export const Soda = new Food(1, "Soda", 5, 10, "Sweet soda that sells well, but isn't quite filling...", 5, 5);
+export const Soda = new Food(1, "Soda", 5, 15, "Sweet soda that sells well, but isn't quite filling...", 5, 1, false, true);
 
-export const FoodList = [Sandwich];
+export const FoodList = [Sandwich, Soda];
