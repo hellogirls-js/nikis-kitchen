@@ -6,7 +6,6 @@ import { CutsceneList } from "./Cutscene.js";
 const GAME = new GameSession();
 
 function initGame() {
-  LOADER.style.display = "none";
   CG_BOX.style.display = GAME.session.showCG ? "flex" : "none";
   GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
   MONEY_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
@@ -40,7 +39,6 @@ function initGame() {
   });
   NIKI.classList.add(GAME.session.canFeed ? "enabled" : "disabled");
   SERVE_BUTTON.classList.add(GAME.session.canServe ? "enabled" : "disabled");
-  LOADER.style.display = "none";
   GAME_BOX.style.display = "flex";
 }
 
@@ -83,6 +81,7 @@ document.addEventListener("readystatechange", (e) => {
       GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
     });
     initGame();
+    LOADER.style.display = "none";
     if (GAME.session.playGame) {
       GAME.decreaseStomachBar();
     }
