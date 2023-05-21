@@ -7,4 +7,8 @@ Niki: ...
 Rinne: ... Eh? Why're you so quiet? Did you eat something rancid?
 Niki: I <i>can't</i> work in the kitchen anymore. I got fired.
 /CHANGE/
-Rinne: 
+Rinne: Huh? They fired ya? Are they stupid?!
+Rinne: You're my Niki-- a guy who dedicates his whole being to food!
+/CHANGE/
+Niki: DON'T act clueless! It's your fault I got fired in the first place!
+Niki: My manager got sick of your hooligan behavior and threw me out!
