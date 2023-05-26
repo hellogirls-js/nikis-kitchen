@@ -1,6 +1,6 @@
-# From Idol Niki -> Idle Niki
+# Cafe Shiinamon!
 
-![idle niki main visual](images/main_visual.png)
+![cafe shiinamon main visual](images/main_visual.png)
 
 ## Synopsis
 Niki finally quits being an idol, hoping to stay dedicated to cooking. However, he's fired from Cafe Cinnamon due to his past as an idol. Driven by his desire to stay in the food industry, he opens a new restaurant by himself. Now, he must work from the bottom up to sustain himself!
