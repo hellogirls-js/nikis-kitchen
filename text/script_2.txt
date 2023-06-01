@@ -3,6 +3,7 @@ Rinne: And guess what? I got us some drinks! Finally get to try this coke stuff 
 /CHANGE/
 Niki: ...
 Rinne: How're ya feelin' now that you're not an idol anymore? You enjoying your new kitchen life?
+/CHANGE/
 Niki: ...
 Rinne: ... Eh? Why're you so quiet? Did you eat something rancid?
 Niki: I <i>can't</i> work in the kitchen anymore. I got fired.
@@ -11,4 +12,18 @@ Rinne: Huh? They fired ya? Are they stupid?!
 Rinne: You're my Niki-- a guy who dedicates his whole being to food!
 /CHANGE/
 Niki: DON'T act clueless! It's your fault I got fired in the first place!
-Niki: My manager got sick of your hooligan behavior and threw me out!
+Niki: My manager got sick of your hooligan behavior and threw me out! So I'm starting from scratch.
+Niki: Now, go lay on the sofa or whatever! To think I got my hopes up 'cause I thought you were a customer...
+/CHANGE/
+Rinne: Eh, come on, Niki~kyun... I'm sorry! I'll make it up to ya, I promise!
+Rinne: It's probably fate telling ya to go back to being an idol!
+Rinne: I mean, I need to yank on <i>someone's</i> ponytail during practice and Merumeru or Kohaku-chan won't cut it.
+Rinne: Kyahaha~ I'm just joking. I'll seriously make it up to my Niki!
+Rinne: In the meantime, why don'tcha crack open a cold one and calm down? Here!
+Rinne: I gotta go do something, be right back!
+/CHANGE/
+Niki: ...
+Niki: This stuff isn't gonna fill me up... Rinne-kun, are you serious?
+Niki: ...
+/CHANGE/
+Niki: Maybe I can give this to customers?
