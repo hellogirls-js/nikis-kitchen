@@ -27,7 +27,19 @@
       </nav> -->
       <div id="rotate-device-overlay"><img src="/images/niki_sprites/rotatepls.png" alt="please rotate your device!"/></div>
       <div id="settings-overlay" class="overlay" style="display: none;"></div>
-      <div id="achievements-overlay" class="overlay" style="display: none;"></div>
+      <div id="achievements-overlay-container" class="overlay-container hide">
+        <div id="achievements-overlay" class="overlay hide">
+          <div id="achievements-overlay-header" class="overlay-header">
+            <div id="achievements-overlay-title" class="overlay-title">Achievements</div>
+            <div id="achievements-overlay-x" class="overlay-x"><i class="ti ti-x"></i></div>
+          </div>
+          <div id="achievement-overlay-content" class="overlay-content">
+            <div id="achievement-overlay-grid">
+              
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="info-overlay-container" class="overlay-container hide">
         <div id="info-overlay" class="overlay hide">
           <div id="info-overlay-header" class="overlay-header">
@@ -60,6 +72,34 @@
               <div id="stat-money-icon" class="stat-icon"><i class="ti ti-coin"></i></div>
               <div id="stat-money-content" class="stat-content"></div>
               <div id="stat-money-increment" class="hide-inc"></div>
+            </div>
+          </div>
+          <div id="game-achievement-box">
+            <div id="game-achievement-container">
+              <div id="game-achievement" class="hide">
+                <div id="achievement-text">
+                  <div id="achievement-text-icon">
+                    <i class="ti ti-star-filled"></i>
+                  </div>
+                  <div id="achievement-text-box">
+                    Achievement Text
+                  </div>
+                </div>
+                <div id="achievement-x">
+                  <i class="ti ti-x"></i>
+                </div>
+              </div>
+              <div id="game-achievement-tooltip" class="hide">
+                <div id="achievement-tooltip-title">
+                  <div id="achievement-tooltip-title-icon">
+                    <i class="ti ti-star-filled"></i>
+                  </div>
+                  <div id="achievement-tooltip-title-txt">
+                  </div>
+                </div>
+                <div id="achievement-tooltip-desc">
+                </div>
+              </div>
             </div>
           </div>
           <div id="game-settings-buttons">

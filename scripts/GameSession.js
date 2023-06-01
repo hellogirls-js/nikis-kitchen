@@ -1,4 +1,5 @@
-import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, MONEY_CONTAINER } from "./CONSTANTS.js";
+import { Achievments } from "./Achievement.js";
+import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -12,6 +13,9 @@ class GameSession {
     stomach: 100,
     stomachInterval: 500,
     customersServed: 0,
+    feedAmt: 0,
+    foodTypesFed: [{foodId: 0, amtFed: 0}, {foodId: 1, amtFed: 0}],
+    foodTypesServed: [{foodId: 0, amtServed: 0}, {foodId: 1, amtServed: 0}],
     canServe: false,
     canFeed: false,
     showCG: true,
@@ -34,17 +38,27 @@ class GameSession {
   }
 
   /**
-   * 
+   * show or hide the overlay
    * @param {HTMLDivElement} container the container element to show
    * @param {HTMLDivElement} overlay the overlay element to show
    */
   toggleSettingOverlay(container, overlay) {
     if (container.classList.contains("hide")) {
+      if (container.id === "achievements-overlay-container") {
+        Achievments.forEach(ach => {
+          ach.createAchievementCell();
+        })
+      }
+      this.togglePlayGame(false);
       container.classList.replace("hide", "show");
       overlay.classList.replace("hide", "show");
     } else {
       container.classList.replace("show", "hide");
       overlay.classList.replace("show", "hide");
+      if (container.id === "achievements-overlay-container") {
+        document.getElementById("achievement-overlay-grid").innerHTML = "";
+      }
+      this.togglePlayGame(true);
     }
   }
 
@@ -68,7 +82,11 @@ class GameSession {
    */
   togglePlayGame(val) {
     this.session.playGame = val;
-    if (val) this.decreaseStomachBar();
+    if (val) {
+      this.decreaseStomachBar();
+    } else {
+      this.pauseStomachBar();
+    }
   }
 
   /**
@@ -94,6 +112,44 @@ class GameSession {
 
   /**
    * 
+   * @param {number} i the achievement id
+   */
+  getAchievement(i) {
+    return Achievments.find(ach => ach.id === i);
+  }
+
+  /**
+   * 
+   * @param {boolean} condition the condition to unlock the achievement
+   * @param {number} i achievement id
+   */
+  unlockAchievement(condition, i) {
+    if (condition && !this.getAchievement(i).unlocked) {
+      this.showAchievement(i);
+    }
+  }
+
+  /**
+   * 
+   * @param {number} i the achievement id
+   */
+  showAchievement(i) {
+    let ach = Achievments.find(a => a.id === i);
+    ach.unlock();
+    ACHIEVEMENT_TEXTBOX.innerHTML = ach.name;
+    ACH_TOOLTIP_TITLE.innerHTML = ach.name;
+    ACH_TOOLTIP_DESC.innerHTML = ach.description;
+    if (ACHIEVEMENT.classList.contains("hide")) ACHIEVEMENT.classList.remove("hide");
+    ACHIEVEMENT.classList.add("show");
+  }
+
+  closeAchievement() {
+    if (ACHIEVEMENT.classList.contains("show")) ACHIEVEMENT.classList.remove("show");
+    ACHIEVEMENT.classList.add("hide");
+  }
+
+  /**
+   * 
    * @param {number} amt adjust the amount of money by [amt], positive to increase, negative to decrease
    */
   incrementMoney(amt) {
@@ -105,9 +161,15 @@ class GameSession {
     if (amt > 0) {
       MONEY_INCREMENT.classList.contains("decrease") && MONEY_INCREMENT.classList.remove("decrease");
       MONEY_INCREMENT.classList.add("increase");
+      this.unlockAchievement(this.session.money >= 420, 14);
+      this.unlockAchievement(this.session.money >= 1000, 15);
+      this.unlockAchievement(this.session.money >= 10000, 16);
+      this.unlockAchievement(this.session.money >= 100000, 17);
+      this.unlockAchievement(this.session.money >= 1000000, 18);
     } else {
       MONEY_INCREMENT.classList.contains("increase") && MONEY_INCREMENT.classList.remove("increase");
       MONEY_INCREMENT.classList.add("decrease");
+      this.unlockAchievement(this.session.money <= 0, 13);
     }
     setTimeout(() => {
       MONEY_INCREMENT.classList.remove("show-inc");
@@ -245,17 +307,32 @@ class GameSession {
       HUNGRY_SPEECH.classList.add("show");
       HUNGRY_SPEECH.innerHTML = "I'm starving...!!!";
     }
+
+    this.unlockAchievement(this.session.stomach <= 0, 29);
   }
+
+  stomachInterval = setInterval(() => {
+    if (this.stomach > 0) {
+      this.incrementStomach(-1);
+    }
+  }, this.stomachInterval);
 
   /**
     * decrease the stomach bar value at an interval set by the game
     */
   decreaseStomachBar() {
-    setInterval(() => {
+    this.stomachInterval = setInterval(() => {
       if (this.session.stomach > 0) {
         this.incrementStomach(-1);
       }
     }, this.session.stomachInterval);
+  }
+
+  /**
+   * pause the stomach bar
+   */
+  pauseStomachBar() {
+    clearInterval(this.stomachInterval);
   }
 
   /**
@@ -282,6 +359,35 @@ class GameSession {
   }
 
   /**
+   * 
+   * @param {Food} food food that was fed
+   */
+  addFoodTypeFed(food) {
+    const index = this.getFoodTypeFed(food);
+    this.session.foodTypesFed[index].amtFed++;
+    // sandwich achievements
+    this.unlockAchievement(this.session.foodTypesFed[0].amtFed >= 10, 30);
+    this.unlockAchievement(this.session.foodTypesFed[0].amtFed >= 100, 31);
+    this.unlockAchievement(this.session.foodTypesFed[0].amtFed >= 500, 32);
+    this.unlockAchievement(this.session.foodTypesFed[0].amtFed >= 1000, 33);
+    this.unlockAchievement(this.session.foodTypesFed[0].amtFed >= 5000, 34);
+    // soda achievements
+    this.unlockAchievement(this.session.foodTypesFed[1].amtFed >= 10, 35);
+    this.unlockAchievement(this.session.foodTypesFed[1].amtFed >= 100, 36);
+    this.unlockAchievement(this.session.foodTypesFed[1].amtFed >= 500, 37);
+    this.unlockAchievement(this.session.foodTypesFed[1].amtFed >= 1000, 38);
+    this.unlockAchievement(this.session.foodTypesFed[1].amtFed >= 5000, 38);
+  }
+
+  /**
+   * 
+   * @param {Food} food food to get fed stats for
+   */
+  getFoodTypeFed(food) {
+    return this.session.foodTypesFed.findIndex(type => type.foodId === food.index);
+  }
+
+  /**
    * feed niki some food!
    */
   feed() {
@@ -289,7 +395,15 @@ class GameSession {
     let nextFood = this.session.foodQueue[1];
     if (this.session.canFeed) {
       this.incrementStomach(food.fill);
+      this.session.feedAmt++;
+      this.addFoodTypeFed(food);
       this.removeFromFoodQueue();
+      // general feed achievements
+      this.unlockAchievement(this.session.feedAmt >= 5, 24);
+      this.unlockAchievement(this.session.feedAmt >= 100, 25);
+      this.unlockAchievement(this.session.feedAmt >= 500, 26); 
+      this.unlockAchievement(this.session.unlockAchievement >= 1000, 27);
+      this.unlockAchievement(this.session.unlockAchievement >= 5000, 28);
       if ((nextFood !== undefined && this.session.stomach + nextFood.fill > 100) || this.session.foodQueue.length === 0) {
         this.toggleCanFeedNiki(false);
       }
@@ -314,15 +428,43 @@ class GameSession {
   }
 
   /**
+   * 
+   * @param {Food} food food that was served
+   */
+  addFoodTypeServed(food) {
+    const index = this.session.foodTypesServed.findIndex(type => type.foodId === food.index);
+    this.session.foodTypesServed[index].amtServed++; 
+    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 10, 1);
+    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 50, 2);
+    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 100, 3);
+    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 200, 4);
+    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 500, 5);
+    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 1000, 6);
+    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 10, 7);
+    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 50, 8);
+    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 100, 9);
+    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 200, 10);
+    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 500, 11);
+    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 1000, 12);
+  }
+
+  /**
    * remove the first item in the food queue and earn money
    */
   serve() {
     if (this.session.canServe) {
-      console.log("serve queen");
       let food = this.session.foodQueue[0];
       if (this.session.foodQueue.length > 0) {
         this.incrementMoney(food.sell);
+        this.addFoodTypeServed(food);
         this.removeFromFoodQueue();
+        this.session.customersServed++;
+        this.unlockAchievement(this.session.customersServed >= 5, 19);
+        this.unlockAchievement(this.session.customersServed >= 100, 20);
+        this.unlockAchievement(this.session.customersServed >= 1000, 21);
+        this.unlockAchievement(this.session.customersServed >= 5000, 22);
+        this.unlockAchievement(this.session.unlockAchievement >= 10000, 23);
+        this.unlockAchievement
         if (this.session.foodQueue.length <= 0) {
           this.toggleCanServe(false);
         }

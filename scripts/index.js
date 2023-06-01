@@ -1,6 +1,6 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
-import { CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
+import { ACHIEVEMENT, ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, ACHIEVEMENT_X, CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
@@ -33,6 +33,20 @@ function initGame() {
     if (GAME.session.canServe) {
       GAME.serve();
     }
+  }
+  ACHIEVEMENT_X.onclick = () => {
+    GAME.closeAchievement();
+  }
+  ACHIEVEMENT_TEXT.onmouseenter = () => {
+    if (ACHIEVEMENT_TOOLTIP.classList.contains("hide")) ACHIEVEMENT_TOOLTIP.classList.remove("hide");
+    ACHIEVEMENT_TOOLTIP.classList.add("show");
+  }
+  ACHIEVEMENT_TEXT.onmouseleave = () => {
+    if (ACHIEVEMENT_TOOLTIP.classList.contains("show")) ACHIEVEMENT_TOOLTIP.classList.remove("show");
+    ACHIEVEMENT_TOOLTIP.classList.add("hide");
+  }
+  ACHIEVEMENT_TEXT.onclick = () => {
+    GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
   }
   FoodList.forEach(food => {
     food.createIngredientBox(GAME);
@@ -69,17 +83,21 @@ document.addEventListener("readystatechange", (e) => {
     GAME_BOX.style.display = "none";
     LOADER.style.display = "block";
   } else {
-    for (let i = 0; i < SETTING_BUTTONS.length - 1; i++) {
-      SETTING_BUTTONS[i].addEventListener("click", (e) => { 
-        showSowwyOverlay(); 
-      });
-    }
+    SETTINGS_SETTING_BUTTON.addEventListener("click", (e) => { 
+      showSowwyOverlay(); 
+    });
     INFO_SETTING_BUTTON.addEventListener("click", (e) => {
       GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
     });
     INFO_CLOSE.addEventListener("mousedown", (e) => {
       GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
     });
+    ACHIEVEMENT_SETTING_BUTTON.addEventListener("click", (e) => {
+      GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
+    })
+    ACHIEVEMENT_OVERLAY_CLOSE.addEventListener("mousedown", (e) => {
+      GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
+    })
     initGame();
     LOADER.style.display = "none";
     if (GAME.session.playGame) {
