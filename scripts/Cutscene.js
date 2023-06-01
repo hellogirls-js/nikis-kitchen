@@ -6,11 +6,13 @@ export class Cutscene {
    * @param {number} order the order in which the cg occurs
    * @param {string} cg_list list of cg src in order
    */
-  constructor(order, cg_list) {
+  constructor(order, cg_list, voice_list) {
     this.order = order;
     this.cg_list = cg_list;
+    this.voice_list = voice_list;
     this.showTextbox = true;
     this.cgIndex = 0;
+    this.voiceIndex = 0;
     this.dialogueIndex = 0;
     this.closeCG = false;
 
@@ -73,9 +75,22 @@ export class Cutscene {
       } else if (this.dialogue[this.dialogueIndex].name) {
         if (TEXTBOX_CONTENT.style.visibility === "hidden") TEXTBOX_CONTENT.style.visibility = "visible";
         this.formatTextbox();
+        setTimeout(() => {
+          this.playVoiceLine()
+        }, 500);
       } else {
         console.log("We are fucked!");
       }
+    }
+  }
+
+  /**
+   * play the voice line
+   */
+  playVoiceLine() {
+    this.voice_list[this.voiceIndex].play();
+    if (this.voiceIndex < this.voice_list.length - 1) {
+      this.voiceIndex++;
     }
   }
 
@@ -110,7 +125,28 @@ export class Cutscene {
   }
 }
 
-export const CUTSCENE_1 = new Cutscene(0, ["../images/CUTSCENE_1/cg_1.png", "../images/CUTSCENE_1/cg_2.png", "../images/CUTSCENE_1/cg_3.png", "../images/CUTSCENE_1/cg_4.png", "../images/CUTSCENE_1/cg_5.png"]);
+export const CUTSCENE_1 = new Cutscene(
+  0, 
+  [
+    "../images/CUTSCENE_1/cg_1.png", 
+    "../images/CUTSCENE_1/cg_2.png", 
+    "../images/CUTSCENE_1/cg_3.png", 
+    "../images/CUTSCENE_1/cg_4.png", 
+    "../images/CUTSCENE_1/cg_5.png"
+  ],
+  [
+    "..sounds/voice_lines/niki_demo_1.wav", 
+    "..sounds/voice_lines/niki_demo_2.wav", 
+    "..sounds/voice_lines/niki_demo_3.wav", 
+    "..sounds/voice_lines/niki_demo_4.wav", 
+    "..sounds/voice_lines/niki_demo_5.wav", 
+    "..sounds/voice_lines/niki_demo_6.wav",
+    "..sounds/voice_lines/niki_demo_7.wav",
+    "..sounds/voice_lines/niki_demo_8.wav",
+    "..sounds/voice_lines/niki_demo_9.wav",
+    "..sounds/voice_lines/niki_demo_10.wav"
+  ]
+);
 
 /**
  * list of cutscenes for the GameSession object to use

@@ -12,6 +12,11 @@ export const INFO_OVERLAY_CONTAINER = document.getElementById("info-overlay-cont
 export const INFO_OVERLAY = document.getElementById("info-overlay");
 export const INFO_CLOSE = document.getElementById("info-overlay-x");
 
+// sound divs
+export const VOICE_LINES = document.getElementById("voice-lines-src");
+export const SOUND_EFFECTS = document.getElementById("sound-effects-src");
+export const BGM = document.getElementById("bgm-src");
+
 // stat divs
 export const MONEY_CONTAINER = document.getElementById("stat-money-container");
 export const MONEY_LABEL = document.getElementById("stat-money-content");
