@@ -20,8 +20,9 @@ export const NEW_GAME_BUTTON = document.getElementById("new-game");
 // sound divs
 export const VOICE_LINES = document.getElementById("voice-lines");
 export const VOICE_LINES_SRC = document.getElementById("voice-lines-src");
-export const SOUND_EFFECTS = document.getElementById("sound-effects-src");
-export const BGM = document.getElementById("bgm-src");
+export const SOUND_EFFECTS_SRC = document.getElementById("sound-effects-src");
+export const BGM = document.getElementById("bgm");
+export const BGM_SRC = document.getElementById("bgm-src");
 
 // stat divs
 export const MONEY_CONTAINER = document.getElementById("stat-money-container");

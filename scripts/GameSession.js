@@ -1,5 +1,5 @@
 import { Achievments } from "./Achievement.js";
-import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC } from "./CONSTANTS.js";
+import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, BGM_SRC, BGM } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -18,8 +18,10 @@ class GameSession {
     foodTypesServed: [{foodId: 0, amtServed: 0}, {foodId: 1, amtServed: 0}],
     canServe: false,
     canFeed: false,
-    showCG: true,
-    playGame: false,
+    // showCG: true,
+    // playGame: false,
+    showCG: false,
+    playGame: true,
     currentCGIndex: 0
   }
 
@@ -81,8 +83,18 @@ class GameSession {
    * @param {boolean} val set as true if you want the game to play; false if the game is paused
    */
   togglePlayGame(val) {
+    console.log("play game");
     this.session.playGame = val;
     if (val) {
+      switch (this.level) {
+        case 0:
+          console.log("play bgm");
+          BGM.src = "../sounds/bgm/stage_1_cafe_shiinamon.wav";
+          BGM.play();
+          break;
+        default:
+          break;
+      }
       this.decreaseStomachBar();
     } else {
       this.pauseStomachBar();

@@ -142,12 +142,13 @@ export const CUTSCENE_1 = new Cutscene(
     "../sounds/voice_lines/CUTSCENE_1/niki_demo_2.wav", 
     "../sounds/voice_lines/CUTSCENE_1/niki_demo_3.wav", 
     "../sounds/voice_lines/CUTSCENE_1/niki_demo_4.wav", 
-    "../sounds/voice_lines/CUTSCENE_1/niki_demo_5.wav", 
-    "../sounds/voice_lines/CUTSCENE_1/niki_demo_6.wav",
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_6.wav", 
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_5.wav",
     "../sounds/voice_lines/CUTSCENE_1/niki_demo_7.wav",
     "../sounds/voice_lines/CUTSCENE_1/niki_demo_8.wav",
     "../sounds/voice_lines/CUTSCENE_1/niki_demo_9.wav",
-    "../sounds/voice_lines/CUTSCENE_1/niki_demo_10.wav"
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_10.wav",
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_11.wav"
   ]
 );
 
