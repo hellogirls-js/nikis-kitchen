@@ -84,7 +84,7 @@ export class Cutscene {
             console.log("hello");
             this.voiceIndex++;
           }
-        }, 500);
+        }, 50);
       } else {
         console.log("We are fucked!");
       }
