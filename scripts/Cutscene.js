@@ -78,13 +78,10 @@ export class Cutscene {
       } else if (this.dialogue[this.dialogueIndex].name) {
         if (TEXTBOX_CONTENT.style.visibility === "hidden") TEXTBOX_CONTENT.style.visibility = "visible";
         this.formatTextbox();
-        setTimeout(() => {
-          this.playVoiceLine();
-          if (this.voiceIndex < this.voice_list.length - 1) {
-            console.log("hello");
-            this.voiceIndex++;
-          }
-        }, 50);
+        this.playVoiceLine();
+        if (this.voiceIndex < this.voice_list.length - 1) {
+          this.voiceIndex++;
+        }
       } else {
         console.log("We are fucked!");
       }
