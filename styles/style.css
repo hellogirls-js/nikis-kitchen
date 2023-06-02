@@ -90,6 +90,16 @@
   100% {transform: rotate(0deg)}
 }
 
+@keyframes showTitle {
+  0% {transform: translateX(-100%); visibility: hidden;}
+  100% {transform: translateX(0%); visibility: visible;}
+}
+
+@keyframes showButtons {
+  0% {transform: translateY(-100%); visibility: hidden;}
+  100% {transform: translateY(0%); visibility: visible;}
+}
+
 /* ROOT */
 
 html, body {
@@ -398,6 +408,7 @@ html {
   border-right: 5px solid var(--dark-base);
   border-left: 5px solid var(--subcolor);
   border-top: none;
+  overflow: hidden;
 }
 
 #game-top-bar {
@@ -598,6 +609,74 @@ html {
   font-weight: 700;
   font-size: 1.2em;
   color: var(--subcolor-2);
+}
+
+/* START SCREEN */
+
+#start-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/main_visual.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#start-screen::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, #553d6933, transparent);
+}
+
+#game-logo {
+  position: absolute;
+  width: 428px;
+  height: 272px;
+  left: 2%;
+  top: 2%;
+  visibility: hidden;
+  background-color: var(--yellow);
+  border: 5px solid var(--light-base);
+  border-radius: 50%;
+  transition: transform 0.3s, visibility 0.2s;
+  animation: showTitle 0.75s linear 1s 1 forwards;
+}
+
+#game-logo img {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+}
+
+#button-options {
+  position: absolute;
+  width: 25%;
+  top: 5%;
+  right: 3%;
+  font-size: 4rem;
+  font-family: 'Dongle', sans-serif;
+  visibility: hidden;
+  animation: showButtons 0.75s linear 2s 1 forwards;
+}
+
+.start-screen-button {
+  font-weight: bold;
+  background-color: var(--green);
+  color: #fff;
+  padding: 4%;
+  text-align: center;
+  border-radius: 25px;
+  border: 5px solid var(--light-base);
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.1s;
+}
+
+.start-screen-button:hover {
+  background-color: var(--green-darker);
 }
 
 /* CG */
@@ -1078,6 +1157,11 @@ html {
     max-width: 85vw;
     left: 7.5%;
     right: 7.5%;
+  }
+
+  #game-logo {
+    width: calc(856px / 3);
+    height: calc(544px / 3);
   }
 
   #game-content-neekee {

@@ -1,4 +1,4 @@
-import { CG_BOX, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME, TEXTBOX_NEXT, TEXTBOX_TEXT } from "./CONSTANTS.js";
+import { CG_BOX, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME, TEXTBOX_NEXT, TEXTBOX_TEXT, VOICE_LINES, VOICE_LINES_SRC } from "./CONSTANTS.js";
 
 export class Cutscene {
   /**
@@ -50,6 +50,9 @@ export class Cutscene {
       cgDiv.style.backgroundImage = `url("${this.cg_list[(this.cg_list.length - 1) - i]}")`;
       CG_BOX.appendChild(cgDiv);
     }
+
+    // add initial voice line
+    VOICE_LINES.src = this.voice_list[this.voiceIndex];
   }
     
   /**
@@ -76,7 +79,11 @@ export class Cutscene {
         if (TEXTBOX_CONTENT.style.visibility === "hidden") TEXTBOX_CONTENT.style.visibility = "visible";
         this.formatTextbox();
         setTimeout(() => {
-          this.playVoiceLine()
+          this.playVoiceLine();
+          if (this.voiceIndex < this.voice_list.length - 1) {
+            console.log("hello");
+            this.voiceIndex++;
+          }
         }, 500);
       } else {
         console.log("We are fucked!");
@@ -88,10 +95,9 @@ export class Cutscene {
    * play the voice line
    */
   playVoiceLine() {
-    this.voice_list[this.voiceIndex].play();
-    if (this.voiceIndex < this.voice_list.length - 1) {
-      this.voiceIndex++;
-    }
+    console.log("haiiii");
+    VOICE_LINES.src = this.voice_list[this.voiceIndex];
+    VOICE_LINES.play();
   }
 
   /**
@@ -135,16 +141,16 @@ export const CUTSCENE_1 = new Cutscene(
     "../images/CUTSCENE_1/cg_5.png"
   ],
   [
-    "..sounds/voice_lines/niki_demo_1.wav", 
-    "..sounds/voice_lines/niki_demo_2.wav", 
-    "..sounds/voice_lines/niki_demo_3.wav", 
-    "..sounds/voice_lines/niki_demo_4.wav", 
-    "..sounds/voice_lines/niki_demo_5.wav", 
-    "..sounds/voice_lines/niki_demo_6.wav",
-    "..sounds/voice_lines/niki_demo_7.wav",
-    "..sounds/voice_lines/niki_demo_8.wav",
-    "..sounds/voice_lines/niki_demo_9.wav",
-    "..sounds/voice_lines/niki_demo_10.wav"
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_1.wav", 
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_2.wav", 
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_3.wav", 
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_4.wav", 
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_5.wav", 
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_6.wav",
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_7.wav",
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_8.wav",
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_9.wav",
+    "../sounds/voice_lines/CUTSCENE_1/niki_demo_10.wav"
   ]
 );
 

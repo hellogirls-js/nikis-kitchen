@@ -108,7 +108,17 @@
             <div id="info-button" class="settings-button"><i class="ti ti-info-circle"></i></div>
           </div>
         </div>
-        <div id="cg-overlay">
+        <div id="start-screen">
+          <div id="game-logo">
+            <img src="images/game_logo.png" />
+          </div>
+          <div id="button-options">
+            <div id="new-game" class="start-screen-button">
+              New game
+            </div>
+          </div>
+        </div>
+        <div id="cg-overlay" style="display: none;">
           <div id="cg-textbox" class="textbox">
             <div id="cg-textbox-content">
               <div id="cg-textbox-name"></div>
@@ -117,7 +127,7 @@
             <div id="cg-textbox-next"><i class="ti ti-chevron-right"></i></div>
           </div>
         </div>
-        <div id="game-container">
+        <div id="game-container" style="display: none;">
           <div id="game-scene">
             <div id="game-stats">
               <div id="stat-bars">
@@ -159,12 +169,12 @@
     <audio id="voice-lines">
       <source id="voice-lines-src" type="audio/wav" />
     </audio>
-    <audio id="sound-effects">
+    <!-- <audio id="sound-effects">
       <source id="sound-effects-src" type="audio/wav" />
     </audio>
     <audio id="bgm">
       <source id="bgm-src" type="audio/wav" />
-    </audio>
+    </audio> -->
     <script src="scripts/index.js" type="module"></script>
   </body>
 </html>

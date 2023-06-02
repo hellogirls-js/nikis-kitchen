@@ -1,11 +1,12 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
-import { ACHIEVEMENT, ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, ACHIEVEMENT_X, CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, SETTING_BUTTONS, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
+import { ACHIEVEMENT, ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, ACHIEVEMENT_X, CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NEW_GAME_BUTTON, NIKI, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, SETTING_BUTTONS, START_SCREEN, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
 
 function initGame() {
+  START_SCREEN.style.display = "none";
   CG_BOX.style.display = GAME.session.showCG ? "flex" : "none";
   GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
   MONEY_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
@@ -97,12 +98,20 @@ document.addEventListener("readystatechange", (e) => {
     })
     ACHIEVEMENT_OVERLAY_CLOSE.addEventListener("mousedown", (e) => {
       GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
-    })
-    initGame();
+    });
+    NEW_GAME_BUTTON.addEventListener("click", (e) => {
+      initGame();
+      if (GAME.session.showCG) {
+        setTimeout(() => {
+          VOICE_LINES.play();
+          CutsceneList[GAME.session.currentCGIndex].voiceIndex++;
+        }, 100);
+      }
+      if (GAME.session.playGame) {
+        GAME.decreaseStomachBar();
+      }
+    });
     LOADER.style.display = "none";
-    if (GAME.session.playGame) {
-      GAME.decreaseStomachBar();
-    }
   }
 });
 
