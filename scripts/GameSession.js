@@ -18,10 +18,10 @@ class GameSession {
     foodTypesServed: [{foodId: 0, amtServed: 0}, {foodId: 1, amtServed: 0}],
     canServe: false,
     canFeed: false,
-    // showCG: true,
-    // playGame: false,
-    showCG: false,
-    playGame: true,
+    showCG: true,
+    playGame: false,
+    // showCG: false,
+    // playGame: true,
     currentCGIndex: 0
   }
 
@@ -83,10 +83,9 @@ class GameSession {
    * @param {boolean} val set as true if you want the game to play; false if the game is paused
    */
   togglePlayGame(val) {
-    console.log("play game");
     this.session.playGame = val;
     if (val) {
-      switch (this.level) {
+      switch (this.session.level) {
         case 0:
           console.log("play bgm");
           BGM.src = "../sounds/bgm/stage_1_cafe_shiinamon.wav";
