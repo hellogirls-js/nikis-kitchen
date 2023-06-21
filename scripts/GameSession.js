@@ -1,5 +1,5 @@
 import { Achievments } from "./Achievement.js";
-import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC } from "./CONSTANTS.js";
+import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_BOX, ACHIEVEMENT_CONTAINER, RINNE_BUTTON } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -20,7 +20,8 @@ class GameSession {
     canFeed: false,
     showCG: true,
     playGame: false,
-    currentCGIndex: 0
+    currentCGIndex: 0,
+    rinneTrigger: false
   }
 
   // if no save is found
@@ -97,8 +98,13 @@ class GameSession {
     this.session.showCG = val;
     GAME_CONTAINER.style.display = val ? "none" : "flex";
     MONEY_CONTAINER.style.display = val ? "none" : "flex";
-    CG_BOX.style.display = val ? "block" : "none";
-    // CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
+    CG_BOX.style.display = val ? "flex" : "none";
+    ACHIEVEMENT_CONTAINER.style.display = val ? "none" : "block";
+    if (val) {
+      this.togglePlayGame(false);
+      CutsceneList[this.session.currentCGIndex].addCGs();
+      CutsceneList[this.session.currentCGIndex].createDialogue();
+    }
   }
 
   /**
@@ -107,7 +113,7 @@ class GameSession {
   incrementCGIndex() {
     this.toggleShowCG(false);
     this.session.currentCGIndex++;
-    // CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
+    CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
   }
 
   /**
@@ -166,6 +172,9 @@ class GameSession {
       this.unlockAchievement(this.session.money >= 10000, 16);
       this.unlockAchievement(this.session.money >= 100000, 17);
       this.unlockAchievement(this.session.money >= 1000000, 18);
+      if (this.session.money >= 500 && !this.session.rinneTrigger) {
+        this.showRinneButton();
+      }
     } else {
       MONEY_INCREMENT.classList.contains("increase") && MONEY_INCREMENT.classList.remove("increase");
       MONEY_INCREMENT.classList.add("decrease");
@@ -470,6 +479,14 @@ class GameSession {
         }
       }
     }
+  }
+
+  setRinneTrigger(val) {
+    this.session.setRinneTrigger = val;
+  }
+
+  showRinneButton() {
+    RINNE_BUTTON.style.display = "block";
   }
 
 }

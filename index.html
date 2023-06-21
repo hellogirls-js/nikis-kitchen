@@ -13,12 +13,10 @@
   </head>
   <body>
     <div id="container">
-      <!-- <nav>
-        <ul>
-          <li>
-          </li>
-        </ul>
-      </nav> -->
+      <div id="loading">
+        <div id="loading-circle"></div>
+        <div id="loading-text">Loading...</div>
+      </div>
       <div id="rotate-device-overlay"><img src="/images/niki_sprites/rotatepls.png" alt="please rotate your device!"/></div>
       <div id="settings-overlay" class="overlay" style="display: none;"></div>
       <div id="achievements-overlay-container" class="overlay-container hide">
@@ -58,10 +56,6 @@
           </div>
         </div>
         
-      </div>
-      <div id="loading" style="display: block;">
-        <div id="loading-circle"></div>
-        <div id="loading-text">Loading...</div>
       </div>
       <div id="game" style="display: none;">
         <div id="game-top-bar">
@@ -114,6 +108,8 @@
             </div>
             <div id="cg-textbox-next"><i class="ti ti-chevron-right"></i></div>
           </div>
+          <div id="cg-stack">
+          </div>
         </div>
         <div id="game-container">
           <div id="game-scene">
@@ -143,6 +139,9 @@
               <div id="game-content-serve">
                 Serve
               </div>
+            </div>
+            <div id="let-rinne-in-button">
+              Someone's at the door!
             </div>
           </div>
           <div id="game-ingredients">
