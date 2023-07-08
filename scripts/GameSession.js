@@ -112,8 +112,13 @@ class GameSession {
    */
   incrementCGIndex() {
     this.toggleShowCG(false);
+    if (this.session.currentCGIndex === 1) {
+      this.toggleRinneButton(false);
+    }
     this.session.currentCGIndex++;
-    CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
+    if (CutsceneList[this.session.currentCGIndex]) {
+      CutsceneList[this.session.currentCGIndex].setCG(CutsceneList[this.session.currentCGIndex].cg_list[CutsceneList[this.session.currentCGIndex].cgIndex]);
+    }
   }
 
   /**
@@ -173,7 +178,7 @@ class GameSession {
       this.unlockAchievement(this.session.money >= 100000, 17);
       this.unlockAchievement(this.session.money >= 1000000, 18);
       if (this.session.money >= 500 && !this.session.rinneTrigger) {
-        this.showRinneButton();
+        this.toggleRinneButton(true);
       }
     } else {
       MONEY_INCREMENT.classList.contains("increase") && MONEY_INCREMENT.classList.remove("increase");
@@ -485,8 +490,8 @@ class GameSession {
     this.session.setRinneTrigger = val;
   }
 
-  showRinneButton() {
-    RINNE_BUTTON.style.display = "block";
+  toggleRinneButton(val) {
+    RINNE_BUTTON.style.display = val ? "block" : "none";
   }
 
 }
