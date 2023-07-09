@@ -48,6 +48,7 @@ export const INFO_SETTING_BUTTON = document.getElementById("info-button");
 export const ACHIEVEMENT_SETTING_BUTTON = document.getElementById("achivement-button");
 export const SETTINGS_SETTING_BUTTON = document.getElementById("settings-button");
 export const RINNE_BUTTON = document.getElementById("let-rinne-in-button");
+export const LIVE_RINNE_REACTION = document.getElementById("live-rinne-reaction");
 
 // imgs
 export const NIKI_SRC = "../images/niki_sprites/niki_sprite.png";

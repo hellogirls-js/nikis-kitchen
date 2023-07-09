@@ -1,5 +1,5 @@
 import { Achievments } from "./Achievement.js";
-import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_BOX, ACHIEVEMENT_CONTAINER, RINNE_BUTTON } from "./CONSTANTS.js";
+import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_BOX, ACHIEVEMENT_CONTAINER, RINNE_BUTTON, LIVE_RINNE_REACTION } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -21,7 +21,8 @@ class GameSession {
     showCG: true,
     playGame: false,
     currentCGIndex: 0,
-    rinneTrigger: false
+    rinneTrigger: false,
+    rinneLeeching: false,
   }
 
   // if no save is found
@@ -114,6 +115,10 @@ class GameSession {
     this.toggleShowCG(false);
     if (this.session.currentCGIndex === 1) {
       this.toggleRinneButton(false);
+      FoodList[1].toggleVisible(true);
+      if (this.session.money >= FoodList[1].price) {
+        FoodList[1].toggleLock(true);
+      }
     }
     this.session.currentCGIndex++;
     if (CutsceneList[this.session.currentCGIndex]) {
@@ -487,7 +492,12 @@ class GameSession {
   }
 
   setRinneTrigger(val) {
-    this.session.setRinneTrigger = val;
+    this.session.rinneTrigger = val;
+  }
+
+  setRinneLeeching(val) {
+    this.session.rinneLeeching = val;
+    LIVE_RINNE_REACTION.style.display = val ? "block" : "none";
   }
 
   toggleRinneButton(val) {

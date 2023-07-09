@@ -101,6 +101,7 @@ document.addEventListener("readystatechange", (e) => {
     RINNE_BUTTON.addEventListener("click", (e) => {
       e.preventDefault();
       GAME.toggleRinneButton(false);
+      GAME.setRinneTrigger(true);
       GAME.toggleShowCG(true);
     });
     initGame();

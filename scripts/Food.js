@@ -94,6 +94,12 @@ export class Food {
    */
   toggleVisible(val) {
     this.visible = val;
+    const ing = document.getElementById(`ing${this.index}`);
+    if (val && ing.classList.contains("hide")) {
+      ing.classList.replace("hide", "show");
+    } else {
+      ing.classList.replace("show", "hide");
+    }
   }
 
   /**

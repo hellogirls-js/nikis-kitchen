@@ -89,6 +89,16 @@
   100% {transform: scale(1.1)}
 }
 
+@keyframes rotateRinne {
+  0% {transform: rotate(5deg);}
+  100% {transform: rotate(-5deg);}
+}
+
+@keyframes marquee {
+  0%   { transform: translate(100%, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
 /* ROOT */
 
 html, body {
@@ -912,6 +922,50 @@ html {
 
 #game-content-serve.disabled, #game-content-neekee.disabled {
   cursor: not-allowed;
+}
+
+#live-rinne-reaction {
+  display: none;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-right: 4px solid var(--subcolor);
+  border-bottom-right-radius: 10px;
+  overflow: hidden visible;
+}
+
+#live-rinne-reaction-img {
+  width: 100%;
+  height: 200px;
+  background-image: url("../images/misc_sprites/live_rinne_reaction_bg.png");
+  background-size: 200px 200px;
+}
+
+#live-rinne-reaction-img::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/misc_sprites/live_rinne_reaction_sprite.png");
+  background-size: 220px 220px;
+  animation: rotateRinne 1s linear 0s infinite forwards alternate;
+}
+
+#live-rinne-reaction-txt {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  background-color: var(--subcolor);
+  color: var(--light-base);
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+#live-rinne-reaction-marquee {
+  animation: marquee 10s linear infinite;
 }
 
 #let-rinne-in-button {
