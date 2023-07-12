@@ -122,10 +122,10 @@ export class Cutscene {
   }
 }
 
+export const CUTSCENE_3 = new Cutscene(2, ["../images/CUTSCENE_3/3_cg_1.png", "../images/CUTSCENE_3/3_cg_2.png", "../images/CUTSCENE_3/3_cg_3.png", "../images/CUTSCENE_3/3_cg_4.png", "../images/CUTSCENE_3/3_cg_5.png", "../images/CUTSCENE_3/3_cg_6.png","../images/CUTSCENE_3/3_cg_7.png", "../images/CUTSCENE_3/3_cg_8.png", "../images/CUTSCENE_3/3_cg_9.png", "../images/CUTSCENE_3/3_cg_10.png", "../images/CUTSCENE_3/3_cg_11.png", "../images/CUTSCENE_3/3_cg_12.png", "../images/CUTSCENE_3/3_cg_13.png", "../images/CUTSCENE_3/3_cg_14.png"])
 export const CUTSCENE_2 = new Cutscene(1, ["../images/CUTSCENE_2/2_cg_1.png", "../images/CUTSCENE_2/2_cg_2.png", "../images/CUTSCENE_2/2_cg_3.png", "../images/CUTSCENE_2/2_cg_4.png", "../images/CUTSCENE_2/2_cg_5.png", "../images/CUTSCENE_2/2_cg_6.png", "../images/CUTSCENE_2/2_cg_7.png", "../images/CUTSCENE_2/2_cg_8.png"]);
 export const CUTSCENE_1 = new Cutscene(0, ["../images/CUTSCENE_1/cg_1.png", "../images/CUTSCENE_1/cg_2.png", "../images/CUTSCENE_1/cg_3.png", "../images/CUTSCENE_1/cg_4.png", "../images/CUTSCENE_1/cg_5.png"]);
-
 /**
  * list of cutscenes for the GameSession object to use
  */
-export const CutsceneList = [CUTSCENE_1, CUTSCENE_2];
+export const CutsceneList = [CUTSCENE_1, CUTSCENE_2, CUTSCENE_3];

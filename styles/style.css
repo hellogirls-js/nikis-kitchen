@@ -459,6 +459,7 @@ html {
 
 #stat-money-content {
   color: var(--light-subcolor);
+  transition: color 0.1s;
 }
 
 #stat-money-increment {
@@ -613,6 +614,24 @@ html {
   position: relative;
   flex-grow: 1;
   align-items: flex-end;
+}
+
+#cg-loading {
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--blue-darker);
+}
+
+#cg-loading::after {
+  content: "...";
+  color: var(--purple);
 }
 
 #cg-stack {

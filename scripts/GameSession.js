@@ -1,5 +1,5 @@
 import { Achievments } from "./Achievement.js";
-import { CG_BOX, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_BOX, ACHIEVEMENT_CONTAINER, RINNE_BUTTON, LIVE_RINNE_REACTION } from "./CONSTANTS.js";
+import { CG_BOX, CG_LOADING, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_CONTAINER, RINNE_BUTTON, LIVE_RINNE_REACTION, NIKI_MAD_SRC, NIKI_PISSED_SRC } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -10,6 +10,7 @@ class GameSession {
     money: 200,
     foodQueue: [],
     foodQueueFull: false,
+    foodQueueMax: 10,
     stomach: 100,
     stomachInterval: 500,
     customersServed: 0,
@@ -97,6 +98,7 @@ class GameSession {
    */
   toggleShowCG(val) {
     this.session.showCG = val;
+    CG_LOADING.style.display = val ? "flex" : "none";
     GAME_CONTAINER.style.display = val ? "none" : "flex";
     MONEY_CONTAINER.style.display = val ? "none" : "flex";
     CG_BOX.style.display = val ? "flex" : "none";
@@ -105,6 +107,9 @@ class GameSession {
       this.togglePlayGame(false);
       CutsceneList[this.session.currentCGIndex].addCGs();
       CutsceneList[this.session.currentCGIndex].createDialogue();
+      setTimeout(() => {
+        CG_LOADING.style.display = "none";
+      }, 1500);
     }
   }
 
@@ -119,6 +124,7 @@ class GameSession {
       if (this.session.money >= FoodList[1].price) {
         FoodList[1].toggleLock(true);
       }
+      this.setRinneLeeching(true);
     }
     this.session.currentCGIndex++;
     if (CutsceneList[this.session.currentCGIndex]) {
@@ -164,32 +170,73 @@ class GameSession {
     ACHIEVEMENT.classList.add("hide");
   }
 
+  setMoney(amt) {
+    this.session.money = amt;
+    MONEY_LABEL.innerHTML = this.session.money;
+  }
+
+  originalMoneyAmt;
   /**
    * 
    * @param {number} amt adjust the amount of money by [amt], positive to increase, negative to decrease
    */
   incrementMoney(amt) {
-    this.session.money += amt;
-    MONEY_LABEL.innerHTML = this.session.money;
+    let money = this.session.money;
+    this.setMoney(money + amt);
     MONEY_INCREMENT.innerHTML = `${amt > 0 ? "+" : "-"}${Math.abs(amt)}`;
     MONEY_INCREMENT.classList.remove("hide-inc");
     MONEY_INCREMENT.classList.add("show-inc");
     if (amt > 0) {
       MONEY_INCREMENT.classList.contains("decrease") && MONEY_INCREMENT.classList.remove("decrease");
       MONEY_INCREMENT.classList.add("increase");
+      // unlock foods
+      FoodList.forEach(food => {
+        if (!food.unlocked && this.session.money >= food.price && this.session.foodQueue.length + food.amount <= this.session.foodQueueMax) {
+          food.toggleLock(true);
+        }
+      });
       this.unlockAchievement(this.session.money >= 420, 14);
       this.unlockAchievement(this.session.money >= 1000, 15);
       this.unlockAchievement(this.session.money >= 10000, 16);
       this.unlockAchievement(this.session.money >= 100000, 17);
       this.unlockAchievement(this.session.money >= 1000000, 18);
+      // rinne has arrived
       if (this.session.money >= 500 && !this.session.rinneTrigger) {
         this.toggleRinneButton(true);
       }
     } else {
       MONEY_INCREMENT.classList.contains("increase") && MONEY_INCREMENT.classList.remove("increase");
       MONEY_INCREMENT.classList.add("decrease");
+      // lock food if there isnt enough money
+      FoodList.forEach(food => {
+        if (food.unlocked && this.session.money < food.price) {
+          food.toggleLock(false);
+        }
+      });
+      // if rinne is leeching, change niki's expression
+      if (this.session.rinneLeeching) {
+        if (this.session.money <= (2 * this.originalMoneyAmt) / 3) {
+          NIKI_IMG.src = NIKI_MAD_SRC;
+        }
+        if (this.session.money <= this.originalMoneyAmt / 3) {
+          NIKI.classList.contains("normal") && NIKI.classList.remove("normal");
+          NIKI.classList.add("hungry");
+          NIKI_IMG.src = NIKI_PISSED_SRC;
+        }
+      }
+      // stop rinne from leeching
+      if (this.session.money <= 0 && this.session.rinneLeeching) {
+        this.setMoney(0);
+        this.setRinneLeeching(false);
+        // show the cg here
+        setTimeout(() => {
+          this.toggleShowCG(true);
+        }, 500);
+        
+      }
       this.unlockAchievement(this.session.money <= 0, 13);
     }
+    // show the increment amount
     setTimeout(() => {
       MONEY_INCREMENT.classList.remove("show-inc");
       MONEY_INCREMENT.classList.add("hide-inc");
@@ -210,16 +257,16 @@ class GameSession {
    * @param {Food} item food item to add to queue
    */
   addToFoodQueue(item) {
-    if (this.session.foodQueue.length + item.amount <= 10 ) {
+    if (this.session.foodQueue.length + item.amount <= this.session.foodQueueMax ) {
       this.incrementMoney(item.price * -1);
       for (let i = 0; i < item.amount; i++) {
         this.session.foodQueue.push(item);
         item.createFoodQueueItem();
       }
-      if (this.session.foodQueue.length === 10) {
+      if (this.session.foodQueue.length === this.session.foodQueueMax) {
         this.toggleFoodQueueFull(true);
       }
-      if (this.session.money < item.price || this.session.foodQueue.length + item.amount > 10) {
+      if (this.session.money < item.price || this.session.foodQueue.length + item.amount > this.session.foodQueueMax) {
         item.toggleLock(false);
       }
       if (NIKI.classList.contains("disabled") && this.session.stomach < 100) {
@@ -244,7 +291,7 @@ class GameSession {
         this.toggleCanFeedNiki(false);
         this.toggleCanServe(false);
       }
-      if (food.price < this.session.money && this.session.foodQueue.length + food.amount <= 10) {
+      if (food.price < this.session.money && this.session.foodQueue.length + food.amount <= this.session.foodQueueMax) {
         // if the user can still afford the food, enable the ingredient
         if (ing.classList.contains("locked")) {
           food.toggleLock(true);
@@ -300,31 +347,37 @@ class GameSession {
       STOMACH_BAR.classList.contains("mid") && STOMACH_BAR.classList.remove("mid");
       STOMACH_BAR.classList.contains("low") && STOMACH_BAR.classList.remove("low");
       STOMACH_BAR.classList.add("good");
-      NIKI.classList.contains("hungry") && NIKI.classList.remove("hungry");
-      NIKI.classList.add("normal");
-      NIKI_IMG.src = NIKI_SRC;
+      if (!this.session.rinneLeeching) {
+        NIKI.classList.contains("hungry") && NIKI.classList.remove("hungry");
+        NIKI.classList.add("normal");
+        NIKI_IMG.src = NIKI_SRC; 
+      }
       HUNGRY_SPEECH.classList.contains("show") && HUNGRY_SPEECH.classList.remove("show");
       HUNGRY_SPEECH.classList.add("hide");
     } else if (this.session.stomach >= 20 && this.session.stomach < 50) {
       STOMACH_BAR.classList.contains("good") && STOMACH_BAR.classList.remove("good");
       STOMACH_BAR.classList.contains("low") && STOMACH_BAR.classList.remove("low");
       STOMACH_BAR.classList.add("mid");
-      NIKI.classList.contains("hungry") && NIKI.classList.remove("hungry");
-      NIKI.classList.add("normal");
-      NIKI_IMG.src = NIKI_SRC;
-      HUNGRY_SPEECH.classList.contains("hide") && HUNGRY_SPEECH.classList.remove("hide");
-      HUNGRY_SPEECH.classList.add("show");
-      HUNGRY_SPEECH.innerHTML = "I'm hungry..."; 
+      if (!this.session.rinneLeeching) {
+        NIKI.classList.contains("hungry") && NIKI.classList.remove("hungry");
+        NIKI.classList.add("normal");
+        NIKI_IMG.src = NIKI_SRC;
+        HUNGRY_SPEECH.classList.contains("hide") && HUNGRY_SPEECH.classList.remove("hide");
+        HUNGRY_SPEECH.classList.add("show");
+        HUNGRY_SPEECH.innerHTML = "I'm hungry...";
+      }
     } else {
       STOMACH_BAR.classList.contains("good") && STOMACH_BAR.classList.remove("good");
       STOMACH_BAR.classList.contains("mid") && STOMACH_BAR.classList.remove("mid");
       STOMACH_BAR.classList.add("low");
-      NIKI.classList.contains("normal") && NIKI.classList.remove("normal");
-      NIKI.classList.add("hungry");
-      NIKI_IMG.src = NIKI_HUNGRY_SRC;
-      HUNGRY_SPEECH.classList.contains("hide") && HUNGRY_SPEECH.classList.remove("hide");
-      HUNGRY_SPEECH.classList.add("show");
-      HUNGRY_SPEECH.innerHTML = "I'm starving...!!!";
+      if (!this.session.rinneLeeching) {
+        NIKI.classList.contains("normal") && NIKI.classList.remove("normal");
+        NIKI.classList.add("hungry");
+        NIKI_IMG.src = NIKI_HUNGRY_SRC;
+        HUNGRY_SPEECH.classList.contains("hide") && HUNGRY_SPEECH.classList.remove("hide");
+        HUNGRY_SPEECH.classList.add("show");
+        HUNGRY_SPEECH.innerHTML = "I'm starving...!!!";
+      }
     }
 
     this.unlockAchievement(this.session.stomach <= 0, 29);
@@ -498,6 +551,30 @@ class GameSession {
   setRinneLeeching(val) {
     this.session.rinneLeeching = val;
     LIVE_RINNE_REACTION.style.display = val ? "block" : "none";
+    if (val) {
+      this.originalMoneyAmt = this.session.money;
+      this.startRinneLeeching();
+    } else {
+      this.stopRinneLeeching();
+    }
+  }
+
+  rinneLeechMultiplier = 1;
+  rinneLeechInterval = null;
+
+  startRinneLeeching() {
+    this.rinneLeechInterval = setInterval(() => {
+      this.incrementMoney(-10 * this.rinneLeechMultiplier);
+      MONEY_LABEL.style.color = "#f368a2";
+      setTimeout(() => {
+        MONEY_LABEL.style.color = "#dfd2e7";
+      }, 500);
+      this.rinneLeechMultiplier += 2;
+    }, 3000);
+  }
+
+  stopRinneLeeching() {
+    clearInterval(this.rinneLeechInterval);
   }
 
   toggleRinneButton(val) {

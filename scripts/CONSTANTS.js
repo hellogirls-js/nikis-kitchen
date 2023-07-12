@@ -15,6 +15,7 @@ export const INFO_CLOSE = document.getElementById("info-overlay-x");
 export const ACHIEVEMENT_OVERLAY_CONTAINER = document.getElementById("achievements-overlay-container");
 export const ACHIEVEMENT_OVERLAY = document.getElementById("achievements-overlay");
 export const ACHIEVEMENT_OVERLAY_CLOSE = document.getElementById("achievements-overlay-x");
+export const CG_LOADING = document.getElementById("cg-loading");
 
 // stat divs
 export const MONEY_CONTAINER = document.getElementById("stat-money-container");
@@ -53,3 +54,5 @@ export const LIVE_RINNE_REACTION = document.getElementById("live-rinne-reaction"
 // imgs
 export const NIKI_SRC = "../images/niki_sprites/niki_sprite.png";
 export const NIKI_HUNGRY_SRC = "../images/niki_sprites/niki_sprite_hungry.png";
+export const NIKI_MAD_SRC = "../images/niki_sprites/niki_sprite_pissed_1.png";
+export const NIKI_PISSED_SRC = "../images/niki_sprites/niki_sprite_pissed_2.png";
