@@ -1,4 +1,4 @@
-import { CG_BOX, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME, TEXTBOX_NEXT, TEXTBOX_TEXT } from "./CONSTANTS.js";
+import { CG_BOX, CG_STACK, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME, TEXTBOX_NEXT, TEXTBOX_TEXT } from "./CONSTANTS.js";
 
 export class Cutscene {
   /**
@@ -13,9 +13,33 @@ export class Cutscene {
     this.cgIndex = 0;
     this.dialogueIndex = 0;
     this.closeCG = false;
+  }
 
-    // generate dialogue
-    fetch(`../text/script_${this.cgIndex + 1}.txt`)
+  /**
+   * add cg slides to the DOM
+   */
+  addCGs() {
+    for (let i = this.cg_list.length - 1; i >= 0; i--) {
+      let path = this.cg_list[i];
+      const dirs = path.split('/');
+      let cgDiv = document.createElement("div");
+      cgDiv.className = "cg-bg";
+      cgDiv.id = dirs[3];
+      if (dirs[2] === "CUTSCENE_1" && dirs[3] == "cg_1.png") {
+        setTimeout(() => {
+          cgDiv.classList.add("cg-shake");
+        }, 1505);
+      }
+      cgDiv.style.backgroundImage = `url("${path}")`;
+      CG_STACK.appendChild(cgDiv);
+    }
+  }
+
+  /**
+   * generate dialogue
+   */
+  createDialogue() {
+    fetch(`../text/script_${this.order + 1}.txt`)
       .then(response => response.text())
       .then(text => {
         let lines = text.split('\n');
@@ -38,16 +62,6 @@ export class Cutscene {
         this.dialogue = dialogue;
         this.formatTextbox();
       });
-    
-    // add cg slides to the DOM
-    for (let i = 0; i < this.cg_list.length; i++) {
-      const dirs = this.cg_list[(this.cg_list.length - 1) - i].split('/');
-      let cgDiv = document.createElement("div");
-      cgDiv.className = "cg-bg";
-      if (dirs[2] === "CUTSCENE_1" && dirs[3] == "cg_1.png") cgDiv.classList.add("cg-shake");
-      cgDiv.style.backgroundImage = `url("${this.cg_list[(this.cg_list.length - 1) - i]}")`;
-      CG_BOX.appendChild(cgDiv);
-    }
   }
     
   /**
@@ -110,9 +124,10 @@ export class Cutscene {
   }
 }
 
+export const CUTSCENE_3 = new Cutscene(2, ["../images/CUTSCENE_3/3_cg_1.png", "../images/CUTSCENE_3/3_cg_2.png", "../images/CUTSCENE_3/3_cg_3.png", "../images/CUTSCENE_3/3_cg_4.png", "../images/CUTSCENE_3/3_cg_5.png", "../images/CUTSCENE_3/3_cg_6.png","../images/CUTSCENE_3/3_cg_7.png", "../images/CUTSCENE_3/3_cg_8.png", "../images/CUTSCENE_3/3_cg_9.png", "../images/CUTSCENE_3/3_cg_10.png", "../images/CUTSCENE_3/3_cg_11.png", "../images/CUTSCENE_3/3_cg_12.png", "../images/CUTSCENE_3/3_cg_13.png", "../images/CUTSCENE_3/3_cg_14.png"])
+export const CUTSCENE_2 = new Cutscene(1, ["../images/CUTSCENE_2/2_cg_1.png", "../images/CUTSCENE_2/2_cg_2.png", "../images/CUTSCENE_2/2_cg_3.png", "../images/CUTSCENE_2/2_cg_4.png", "../images/CUTSCENE_2/2_cg_5.png", "../images/CUTSCENE_2/2_cg_6.png", "../images/CUTSCENE_2/2_cg_7.png", "../images/CUTSCENE_2/2_cg_8.png"]);
 export const CUTSCENE_1 = new Cutscene(0, ["../images/CUTSCENE_1/cg_1.png", "../images/CUTSCENE_1/cg_2.png", "../images/CUTSCENE_1/cg_3.png", "../images/CUTSCENE_1/cg_4.png", "../images/CUTSCENE_1/cg_5.png"]);
-
 /**
  * list of cutscenes for the GameSession object to use
  */
-export const CutsceneList = [CUTSCENE_1];
+export const CutsceneList = [CUTSCENE_1, CUTSCENE_2, CUTSCENE_3];
