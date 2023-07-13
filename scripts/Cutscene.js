@@ -26,7 +26,9 @@ export class Cutscene {
       cgDiv.className = "cg-bg";
       cgDiv.id = dirs[3];
       if (dirs[2] === "CUTSCENE_1" && dirs[3] == "cg_1.png") {
-        cgDiv.classList.add("cg-shake");
+        setTimeout(() => {
+          cgDiv.classList.add("cg-shake");
+        }, 1505);
       }
       cgDiv.style.backgroundImage = `url("${path}")`;
       CG_STACK.appendChild(cgDiv);

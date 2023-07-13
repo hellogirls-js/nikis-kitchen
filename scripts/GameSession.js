@@ -201,7 +201,7 @@ class GameSession {
       this.unlockAchievement(this.session.money >= 100000, 17);
       this.unlockAchievement(this.session.money >= 1000000, 18);
       // rinne has arrived
-      if (this.session.money >= 5000 && !this.session.rinneTrigger) {
+      if (this.session.money >= 2000 && !this.session.rinneTrigger) {
         this.toggleRinneButton(true);
       }
     } else {
@@ -564,12 +564,12 @@ class GameSession {
 
   startRinneLeeching() {
     this.rinneLeechInterval = setInterval(() => {
-      this.incrementMoney(-100 * this.rinneLeechMultiplier);
+      this.incrementMoney(-50 * this.rinneLeechMultiplier);
       MONEY_LABEL.style.color = "#f368a2";
       setTimeout(() => {
         MONEY_LABEL.style.color = "#dfd2e7";
       }, 500);
-      this.rinneLeechMultiplier += 2;
+      this.rinneLeechMultiplier++;
     }, 3000);
   }
 
