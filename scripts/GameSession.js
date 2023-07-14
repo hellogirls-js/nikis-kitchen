@@ -553,6 +553,7 @@ class GameSession {
     LIVE_RINNE_REACTION.style.display = val ? "block" : "none";
     if (val) {
       this.originalMoneyAmt = this.session.money;
+      this.unlockAchievement(val, 40);
       this.startRinneLeeching();
     } else {
       this.stopRinneLeeching();
