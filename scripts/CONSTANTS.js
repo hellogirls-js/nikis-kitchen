@@ -1,6 +1,7 @@
 // bigger divs
 export const CONTAINER = document.getElementById("container");
 export const CG_BOX = document.getElementById("cg-overlay");
+export const CG_STACK = document.getElementById("cg-stack");
 export const GAME_BOX = document.getElementById("game");
 export const GAME_CONTAINER = document.getElementById("game-container");
 export const LOADER = document.getElementById("loading");
@@ -16,6 +17,7 @@ export const ACHIEVEMENT_OVERLAY = document.getElementById("achievements-overlay
 export const ACHIEVEMENT_OVERLAY_CLOSE = document.getElementById("achievements-overlay-x");
 export const START_SCREEN = document.getElementById("start-screen");
 export const NEW_GAME_BUTTON = document.getElementById("new-game");
+export const CG_LOADING = document.getElementById("cg-loading");
 
 // sound divs
 export const VOICE_LINES = document.getElementById("voice-lines");
@@ -33,6 +35,8 @@ export const FOOD_QUEUE = document.getElementById("stat-food-bar");
 
 // game content divs
 export const ACHIEVEMENT = document.getElementById("game-achievement");
+export const ACHIEVEMENT_BOX = document.getElementById("game-achievement-box");
+export const ACHIEVEMENT_CONTAINER = document.getElementById("game-achievement-container");
 export const ACHIEVEMENT_TEXT = document.getElementById("achievement-text");
 export const ACHIEVEMENT_TEXTBOX = document.getElementById("achievement-text-box");
 export const ACHIEVEMENT_TOOLTIP = document.getElementById("game-achievement-tooltip");
@@ -53,7 +57,11 @@ export const SETTING_BUTTONS = document.getElementsByClassName("settings-button"
 export const INFO_SETTING_BUTTON = document.getElementById("info-button");
 export const ACHIEVEMENT_SETTING_BUTTON = document.getElementById("achivement-button");
 export const SETTINGS_SETTING_BUTTON = document.getElementById("settings-button");
+export const RINNE_BUTTON = document.getElementById("let-rinne-in-button");
+export const LIVE_RINNE_REACTION = document.getElementById("live-rinne-reaction");
 
 // imgs
 export const NIKI_SRC = "../images/niki_sprites/niki_sprite.png";
 export const NIKI_HUNGRY_SRC = "../images/niki_sprites/niki_sprite_hungry.png";
+export const NIKI_MAD_SRC = "../images/niki_sprites/niki_sprite_pissed_1.png";
+export const NIKI_PISSED_SRC = "../images/niki_sprites/niki_sprite_pissed_2.png";

@@ -1,6 +1,8 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
-import { ACHIEVEMENT, ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, ACHIEVEMENT_X, BGM, BGM_SRC, CG_BOX, CONTAINER, GAME_BOX, GAME_CONTAINER, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NEW_GAME_BUTTON, NIKI, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, SETTING_BUTTONS, START_SCREEN, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES } from "./CONSTANTS.js";
+import { ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, 
+        ACHIEVEMENT_X, CONTAINER, GAME_BOX, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, 
+        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
@@ -10,6 +12,8 @@ function initGame() {
   CG_BOX.style.display = GAME.session.showCG ? "flex" : "none";
   GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
   MONEY_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
+  LOADER.style.display = "flex";
+  GAME.toggleShowCG(GAME.session.showCG);
 
   TEXTBOX_NEXT.addEventListener("click", () => { 
     if (CutsceneList[GAME.session.currentCGIndex].dialogueIndex + 1 === CutsceneList[GAME.session.currentCGIndex].dialogue.length - 1) {
@@ -95,7 +99,7 @@ document.addEventListener("readystatechange", (e) => {
     });
     ACHIEVEMENT_SETTING_BUTTON.addEventListener("click", (e) => {
       GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
-    })
+    });
     ACHIEVEMENT_OVERLAY_CLOSE.addEventListener("mousedown", (e) => {
       GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
     });
@@ -119,6 +123,16 @@ document.addEventListener("readystatechange", (e) => {
       }
     });
     LOADER.style.display = "none";
+    RINNE_BUTTON.addEventListener("click", (e) => {
+      e.preventDefault();
+      GAME.toggleRinneButton(false);
+      GAME.setRinneTrigger(true);
+      GAME.toggleShowCG(true);
+    });
+    initGame();
+    if (GAME.session.playGame) {
+      GAME.decreaseStomachBar();
+    }
   }
 });
 
