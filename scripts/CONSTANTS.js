@@ -15,7 +15,16 @@ export const INFO_CLOSE = document.getElementById("info-overlay-x");
 export const ACHIEVEMENT_OVERLAY_CONTAINER = document.getElementById("achievements-overlay-container");
 export const ACHIEVEMENT_OVERLAY = document.getElementById("achievements-overlay");
 export const ACHIEVEMENT_OVERLAY_CLOSE = document.getElementById("achievements-overlay-x");
+export const START_SCREEN = document.getElementById("start-screen");
+export const NEW_GAME_BUTTON = document.getElementById("new-game");
 export const CG_LOADING = document.getElementById("cg-loading");
+
+// sound divs
+export const VOICE_LINES = document.getElementById("voice-lines");
+export const VOICE_LINES_SRC = document.getElementById("voice-lines-src");
+export const SOUND_EFFECTS_SRC = document.getElementById("sound-effects-src");
+export const BGM = document.getElementById("bgm");
+export const BGM_SRC = document.getElementById("bgm-src");
 
 // stat divs
 export const MONEY_CONTAINER = document.getElementById("stat-money-container");

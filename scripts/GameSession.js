@@ -1,5 +1,7 @@
 import { Achievments } from "./Achievement.js";
-import { CG_BOX, CG_LOADING, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_CONTAINER, RINNE_BUTTON, LIVE_RINNE_REACTION, NIKI_MAD_SRC, NIKI_PISSED_SRC } from "./CONSTANTS.js";
+import { CG_BOX, CG_LOADING, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST, MONEY_CONTAINER, MONEY_INCREMENT, MONEY_LABEL, NIKI, NIKI_IMG, NIKI_SRC, NIKI_HUNGRY_SRC, 
+        SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_CONTAINER, BGM_SRC, BGM, RINNE_BUTTON, 
+        LIVE_RINNE_REACTION, NIKI_MAD_SRC, NIKI_PISSED_SRC } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import { Food, FoodList } from "./Food.js";
 
@@ -86,6 +88,15 @@ class GameSession {
   togglePlayGame(val) {
     this.session.playGame = val;
     if (val) {
+      switch (this.session.level) {
+        case 0:
+          console.log("play bgm");
+          BGM.src = "../sounds/bgm/stage_1_cafe_shiinamon.wav";
+          BGM.play();
+          break;
+        default:
+          break;
+      }
       this.decreaseStomachBar();
     } else {
       this.pauseStomachBar();

@@ -1,11 +1,17 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
-import { ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, ACHIEVEMENT_X, CONTAINER, GAME_BOX, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT } from "./CONSTANTS.js";
+import { ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, 
+        ACHIEVEMENT_X, CONTAINER, GAME_BOX, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, 
+        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
 
 function initGame() {
+  START_SCREEN.style.display = "none";
+  CG_BOX.style.display = GAME.session.showCG ? "flex" : "none";
+  GAME_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
+  MONEY_CONTAINER.style.display = GAME.session.showCG ? "none" : "flex";
   LOADER.style.display = "flex";
   GAME.toggleShowCG(GAME.session.showCG);
 
@@ -52,7 +58,6 @@ function initGame() {
   });
   NIKI.classList.add(GAME.session.canFeed ? "enabled" : "disabled");
   SERVE_BUTTON.classList.add(GAME.session.canServe ? "enabled" : "disabled");
-  LOADER.style.display = "none";
   GAME_BOX.style.display = "flex";
 }
 
@@ -98,6 +103,26 @@ document.addEventListener("readystatechange", (e) => {
     ACHIEVEMENT_OVERLAY_CLOSE.addEventListener("mousedown", (e) => {
       GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
     });
+    NEW_GAME_BUTTON.addEventListener("click", (e) => {
+      initGame();
+      if (GAME.session.showCG) {
+        VOICE_LINES.play();
+        CutsceneList[GAME.session.currentCGIndex].voiceIndex++;
+      }
+      if (GAME.session.playGame) {
+        switch (GAME.session.level) {
+          case 0:
+            console.log("play");
+            BGM.src = "../sounds/bgm/stage_1_cafe_shiinamon.wav";
+            BGM.play();
+            break;
+          default:
+            break;
+        }
+        GAME.decreaseStomachBar();
+      }
+    });
+    LOADER.style.display = "none";
     RINNE_BUTTON.addEventListener("click", (e) => {
       e.preventDefault();
       GAME.toggleRinneButton(false);
