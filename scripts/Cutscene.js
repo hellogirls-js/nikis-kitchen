@@ -30,7 +30,7 @@ export class Cutscene {
       if (dirs[2] === "CUTSCENE_1" && dirs[3] == "cg_1.png") {
         setTimeout(() => {
           cgDiv.classList.add("cg-shake");
-        }, 1505);
+        }, 1600);
       }
       cgDiv.style.backgroundImage = `url("${path}")`;
       CG_STACK.appendChild(cgDiv);
@@ -76,7 +76,9 @@ export class Cutscene {
     }
 
     // add initial voice line
-    VOICE_LINES.src = this.voice_list[this.voiceIndex];
+    if (this.voice_list) {
+      VOICE_LINES.src = this.voice_list[this.voiceIndex];
+    }
   }
     
   /**
@@ -85,6 +87,10 @@ export class Cutscene {
   changeCG() {
     this.cgIndex++;
     this.setCG(this.cg_list[this.cgIndex]);
+  }
+
+  incrementVoiceIndex() {
+    this.voiceIndex++;
   }
 
   /**
@@ -104,7 +110,7 @@ export class Cutscene {
         this.formatTextbox();
         this.playVoiceLine();
         if (this.voiceIndex < this.voice_list.length - 1) {
-          this.voiceIndex++;
+          this.incrementVoiceIndex();
         }
       } else {
         console.log("We are fucked!");

@@ -91,8 +91,8 @@ class GameSession {
       switch (this.session.level) {
         case 0:
           console.log("play bgm");
-          BGM.src = "../sounds/bgm/stage_1_cafe_shiinamon.wav";
-          BGM.play();
+          if (!BGM.src || BGM.src !== "../sounds/bgm/stage_1_cafe_shiinamon.wav") BGM.src = "../sounds/bgm/stage_1_cafe_shiinamon.wav";
+          if (BGM.paused) BGM.play();
           break;
         default:
           break;
@@ -108,6 +108,7 @@ class GameSession {
    * @param {boolean} val if true, display a cutscene
    */
   toggleShowCG(val) {
+    if (!BGM.paused) BGM.pause();
     this.session.showCG = val;
     CG_LOADING.style.display = val ? "flex" : "none";
     GAME_CONTAINER.style.display = val ? "none" : "flex";

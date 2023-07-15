@@ -2,7 +2,7 @@ import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
 import { ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, 
         ACHIEVEMENT_X, CONTAINER, GAME_BOX, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, 
-        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES } from "./CONSTANTS.js";
+        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES, NEW_GAME_BUTTON, START_SCREEN, CG_BOX, GAME_CONTAINER, BGM } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 
 const GAME = new GameSession();
@@ -58,6 +58,7 @@ function initGame() {
   });
   NIKI.classList.add(GAME.session.canFeed ? "enabled" : "disabled");
   SERVE_BUTTON.classList.add(GAME.session.canServe ? "enabled" : "disabled");
+  LOADER.style.display = "none";
   GAME_BOX.style.display = "flex";
 }
 
@@ -106,8 +107,11 @@ document.addEventListener("readystatechange", (e) => {
     NEW_GAME_BUTTON.addEventListener("click", (e) => {
       initGame();
       if (GAME.session.showCG) {
-        VOICE_LINES.play();
-        CutsceneList[GAME.session.currentCGIndex].voiceIndex++;
+        if (!BGM.paused) BGM.pause();
+        setTimeout(() => {
+          VOICE_LINES.play();
+          CutsceneList[GAME.session.currentCGIndex].voiceIndex++;
+        }, 1605);
       }
       if (GAME.session.playGame) {
         switch (GAME.session.level) {
@@ -129,10 +133,6 @@ document.addEventListener("readystatechange", (e) => {
       GAME.setRinneTrigger(true);
       GAME.toggleShowCG(true);
     });
-    initGame();
-    if (GAME.session.playGame) {
-      GAME.decreaseStomachBar();
-    }
   }
 });
 
