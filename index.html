@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta charset="UTF-8">
-    <title>Idol Niki → Idle Niki!</title>
+    <title>Cafe Shiinamon!</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <script>
@@ -18,7 +18,38 @@
         <div id="loading-text">Loading...</div>
       </div>
       <div id="rotate-device-overlay"><img src="/images/niki_sprites/rotatepls.png" alt="please rotate your device!"/></div>
-      <div id="settings-overlay" class="overlay" style="display: none;"></div>
+      <div id="settings-overlay-container" class="overlay-container hide">
+        <div id="settings-overlay" class="overlay hide">
+          <div id="settings-overlay-header" class="overlay-header">
+            <div id="settings-overlay-title" class="overlay-title">Settings</div>
+            <div id="settings-overlay-x" class="overlay-x">
+              <i class="ti ti-x"></i>
+            </div>
+          </div>
+          <div id="settings-overlay-content" class="overlay-content">
+            <h2>Sound</h2>
+            <div class="setting-option">
+              <h4>Voice lines</h4>
+              <div class="slider-container">
+                <input type="range" min="0" max="100" class="slider-setting" id="voice-acting-slider" />
+              </div>
+              <div class="setting-volume-icon">
+                <i class="ti ti-volume" id="voice-volume-icon"></i>
+              </div>
+            </div>
+            <div class="setting-option">
+              <h4>Background music</h4>
+              <div class="slider-container">
+                <input type="range" min="0" max="100" class="slider-setting" id="bgm-slider" />
+              </div>
+              <div class="setting-volume-icon">
+                <i class="ti ti-volume" id="bgm-volume-icon"></i>
+              </div>
+            </div>
+            <h2>Save data</h2>
+          </div>
+        </div>
+      </div>
       <div id="achievements-overlay-container" class="overlay-container hide">
         <div id="achievements-overlay" class="overlay hide">
           <div id="achievements-overlay-header" class="overlay-header">
@@ -55,7 +86,6 @@
             <p>None of these characters belong to me. They belong to Happy Elements and Ensemble Stars.</p>
           </div>
         </div>
-        
       </div>
       <div id="game" style="display: none;">
         <div id="game-top-bar">

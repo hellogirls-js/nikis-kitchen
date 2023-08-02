@@ -9,6 +9,9 @@ export const ROTATE_DEVICE = document.getElementById("rotate-device-overlay");
 export const OVERLAY_CONTAINERS = document.getElementsByClassName("overlay-container");
 export const OVERLAYS = document.getElementsByClassName("overlay");
 export const OVERLAY_CLOSE = document.getElementsByClassName("overlay-x");
+export const SETTINGS_OVERLAY_CONTAINER = document.getElementById("settings-overlay-container");
+export const SETTINGS_OVERLAY = document.getElementById("settings-overlay");
+export const SETTINGS_CLOSE = document.getElementById("settings-overlay-x");
 export const INFO_OVERLAY_CONTAINER = document.getElementById("info-overlay-container");
 export const INFO_OVERLAY = document.getElementById("info-overlay");
 export const INFO_CLOSE = document.getElementById("info-overlay-x");
@@ -25,6 +28,10 @@ export const VOICE_LINES_SRC = document.getElementById("voice-lines-src");
 export const SOUND_EFFECTS_SRC = document.getElementById("sound-effects-src");
 export const BGM = document.getElementById("bgm");
 export const BGM_SRC = document.getElementById("bgm-src");
+export const VOICE_LINE_SLIDER = document.getElementById("voice-acting-slider");
+export const BGM_SLIDER = document.getElementById("bgm-slider");
+export const VOICE_LINE_ICON = document.getElementById("voice-volume-icon");
+export const BGM_ICON = document.getElementById("bgm-icon");
 
 // stat divs
 export const MONEY_CONTAINER = document.getElementById("stat-money-container");

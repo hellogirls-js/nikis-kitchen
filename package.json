@@ -18,7 +18,9 @@
   },
   "homepage": "https://idleniki.hellogirls.info",
   "dependencies": {
-    "eslint": "^8.40.0",
     "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "eslint": "^8.46.0"
   }
 }

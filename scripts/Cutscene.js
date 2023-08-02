@@ -1,4 +1,4 @@
-import { CG_BOX, CG_STACK, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME, TEXTBOX_NEXT, TEXTBOX_TEXT, VOICE_LINES, VOICE_LINES_SRC } from "./CONSTANTS.js";
+import { CG_BOX, CG_STACK, TEXTBOX, TEXTBOX_CONTENT, TEXTBOX_NAME, TEXTBOX_TEXT, VOICE_LINES } from "./CONSTANTS.js";
 
 export class Cutscene {
   /**
@@ -122,7 +122,6 @@ export class Cutscene {
    * play the voice line
    */
   playVoiceLine() {
-    console.log("haiiii");
     VOICE_LINES.src = this.voice_list[this.voiceIndex];
     VOICE_LINES.play();
   }

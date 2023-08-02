@@ -1,11 +1,13 @@
 import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
 import { ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, 
-        ACHIEVEMENT_X, CONTAINER, GAME_BOX, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, 
-        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES, NEW_GAME_BUTTON, START_SCREEN, CG_BOX, GAME_CONTAINER, BGM } from "./CONSTANTS.js";
+        ACHIEVEMENT_X, GAME_BOX, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, 
+        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES, NEW_GAME_BUTTON, START_SCREEN, CG_BOX, GAME_CONTAINER, BGM, SETTINGS_OVERLAY_CONTAINER, SETTINGS_OVERLAY, SETTINGS_CLOSE, VOICE_LINE_SLIDER, BGM_SLIDER } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
+import Settings from "./Settings.js";
 
 const GAME = new GameSession();
+const GAME_SETTINGS = new Settings();
 
 function initGame() {
   START_SCREEN.style.display = "none";
@@ -62,49 +64,66 @@ function initGame() {
   GAME_BOX.style.display = "flex";
 }
 
-function showSowwyOverlay() {
-  let overlay = document.createElement("div");
-  overlay.className = "sowwy-overlay";
-  let overlayText = document.createElement("div");
-  overlayText.className = "sowwy-overlay-text";
-  overlayText.appendChild(document.createTextNode("This button doesn't do anything yet, sowwy..."));
-  let overlayX = document.createElement("div");
-  overlayX.className = "sowwy-overlay-x";
-  let overlayXIcon = document.createElement("i");
-  overlayXIcon.className = "ti ti-x";
-  overlayX.addEventListener("click", (e) => {
-    overlay.remove();
-  })
-  overlayX.appendChild(overlayXIcon);
-  overlay.appendChild(overlayText);
-  overlay.appendChild(overlayX);
-  CONTAINER.appendChild(overlay);
-  setTimeout(() => {
-    overlay.remove();
-  }, 3000);
-}
+// function showSowwyOverlay() {
+//   let overlay = document.createElement("div");
+//   overlay.className = "sowwy-overlay";
+//   let overlayText = document.createElement("div");
+//   overlayText.className = "sowwy-overlay-text";
+//   overlayText.appendChild(document.createTextNode("This button doesn't do anything yet, sowwy..."));
+//   let overlayX = document.createElement("div");
+//   overlayX.className = "sowwy-overlay-x";
+//   let overlayXIcon = document.createElement("i");
+//   overlayXIcon.className = "ti ti-x";
+//   overlayX.addEventListener("click", (e) => {
+//     overlay.remove();
+//   })
+//   overlayX.appendChild(overlayXIcon);
+//   overlay.appendChild(overlayText);
+//   overlay.appendChild(overlayX);
+//   CONTAINER.appendChild(overlay);
+//   setTimeout(() => {
+//     overlay.remove();
+//   }, 3000);
+// }
 
 document.addEventListener("readystatechange", (e) => {
   if (e.target.readyState !== "complete") {
     GAME_BOX.style.display = "none";
     LOADER.style.display = "block";
   } else {
-    SETTINGS_SETTING_BUTTON.addEventListener("click", (e) => { 
-      showSowwyOverlay(); 
+    SETTINGS_SETTING_BUTTON.addEventListener("click", () => { 
+      GAME.toggleSettingOverlay(SETTINGS_OVERLAY_CONTAINER, SETTINGS_OVERLAY); 
     });
-    INFO_SETTING_BUTTON.addEventListener("click", (e) => {
+    SETTINGS_CLOSE.addEventListener("mousedown", () => {
+      GAME.toggleSettingOverlay(SETTINGS_OVERLAY_CONTAINER, SETTINGS_OVERLAY); 
+    });
+    INFO_SETTING_BUTTON.addEventListener("click", () => {
       GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
     });
-    INFO_CLOSE.addEventListener("mousedown", (e) => {
+    INFO_CLOSE.addEventListener("mousedown", () => {
       GAME.toggleSettingOverlay(INFO_OVERLAY_CONTAINER, INFO_OVERLAY);
     });
-    ACHIEVEMENT_SETTING_BUTTON.addEventListener("click", (e) => {
+    ACHIEVEMENT_SETTING_BUTTON.addEventListener("click", () => {
       GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
     });
-    ACHIEVEMENT_OVERLAY_CLOSE.addEventListener("mousedown", (e) => {
+    ACHIEVEMENT_OVERLAY_CLOSE.addEventListener("mousedown", () => {
       GAME.toggleSettingOverlay(ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_OVERLAY);
     });
-    NEW_GAME_BUTTON.addEventListener("click", (e) => {
+
+    console.log(GAME_SETTINGS.getBgmVolume(), GAME_SETTINGS.getBgmVolume());
+  
+    VOICE_LINE_SLIDER.value = GAME_SETTINGS.getVoiceVolume();
+    BGM_SLIDER.value = GAME_SETTINGS.getBgmVolume();
+  
+    VOICE_LINE_SLIDER.addEventListener("change", (e) => {
+      GAME_SETTINGS.setVoiceVolume(e.target.value);
+      GAME_SETTINGS.adjustVoiceVolume();
+    });
+    BGM_SLIDER.addEventListener("change", (e) => {
+      GAME_SETTINGS.setBgmValue(e.target.value);
+      GAME_SETTINGS.adjustBgmVolume();
+    })
+    NEW_GAME_BUTTON.addEventListener("click", () => {
       initGame();
       if (GAME.session.showCG) {
         if (!BGM.paused) BGM.pause();
@@ -136,10 +155,10 @@ document.addEventListener("readystatechange", (e) => {
   }
 });
 
-window.addEventListener("resize", (e) => {
+window.addEventListener("resize", () => {
   GAME.toggleRotateDevice();
 });
 
-window.addEventListener("load", (e) => {
+window.addEventListener("load", () => {
   GAME.toggleRotateDevice();
 })
