@@ -1,5 +1,4 @@
 import { FOOD_QUEUE } from "./CONSTANTS.js";
-import GameSession from "./GameSession.js";
 
 export class Food {
   /**
@@ -35,7 +34,7 @@ export class Food {
     const ingBox = document.createElement("div");
     ingBox.id = `ing${this.index}`;
     ingBox.className = `ingredient ${this.unlocked ? "unlocked" : "locked"} ${this.visible ? "show" : "hide"}`;
-    ingBox.onclick = (event) => {
+    ingBox.onclick = () => {
       if (this.unlocked) {
         game.addToFoodQueue(this);
       } else {

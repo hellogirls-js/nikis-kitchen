@@ -3,7 +3,7 @@ import { CG_BOX, CG_LOADING, FOOD_QUEUE, GAME_CONTAINER, HUNGRY_SPEECH, ING_LIST
         SERVE_BUTTON, STOMACH_BAR, ROTATE_DEVICE, GAME_BOX, ACHIEVEMENT, ACHIEVEMENT_TEXTBOX, ACH_TOOLTIP_TITLE, ACH_TOOLTIP_DESC, ACHIEVEMENT_CONTAINER, BGM, RINNE_BUTTON, 
         LIVE_RINNE_REACTION, NIKI_MAD_SRC, NIKI_PISSED_SRC, START_SCREEN } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
-import { FoodList } from "./Food.js";
+import { FoodList, Sandwich } from "./Food.js";
 
 class GameSession {
   default_session = {
@@ -26,6 +26,7 @@ class GameSession {
     currentCGIndex: 0,
     rinneTrigger: false,
     rinneLeeching: false,
+    hasKohaku: false
   }
 
   // if no save is found
@@ -139,6 +140,8 @@ class GameSession {
         FoodList[1].toggleLock(true);
       }
       this.setRinneLeeching(true);
+    } else if (this.session.currentCGIndex === 2) {
+      this.setKohakuHelping(true);
     }
     this.session.currentCGIndex++;
     if (CutsceneList[this.session.currentCGIndex]) {
@@ -558,6 +561,8 @@ class GameSession {
     }
   }
 
+  // rinne stuff
+
   setRinneTrigger(val) {
     this.session.rinneTrigger = val;
   }
@@ -594,6 +599,40 @@ class GameSession {
 
   toggleRinneButton(val) {
     RINNE_BUTTON.style.display = val ? "block" : "none";
+  }
+
+  // kohaku stuff
+
+  setKohakuHelping(val) {
+    this.session.hasKohaku = val;
+    if (val) {
+      this.unlockAchievement(val, 41);
+      this.startKohakuHelping();
+    }
+  }
+
+  kohakuServeFunction() {
+    const food = Sandwich;
+    this.incrementMoney(food.sell);
+    this.addFoodTypeServed(food);
+    this.session.customersServed++;
+    this.unlockAchievement(this.session.customersServed >= 5, 19);
+    this.unlockAchievement(this.session.customersServed >= 100, 20);
+    this.unlockAchievement(this.session.customersServed >= 1000, 21);
+    this.unlockAchievement(this.session.customersServed >= 5000, 22);
+    this.unlockAchievement(this.session.unlockAchievement >= 10000, 23);
+  }
+
+  kohakuHelpInterval = null;
+
+  startKohakuHelping() {
+    this.kohakuHelpInterval = setInterval(() => {
+      this.kohakuServeFunction();
+    }, 5000);
+  }
+
+  stopKohakuHelping() {
+    clearInterval(this.kohakuHelpInterval);
   }
 
 }

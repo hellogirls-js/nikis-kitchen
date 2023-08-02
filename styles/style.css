@@ -1076,19 +1076,9 @@ setting-volume-icon {
 
 #live-rinne-reaction-img {
   width: 100%;
-  height: 200px;
-  background-image: url("../images/misc_sprites/live_rinne_reaction_bg.png");
-  background-size: 200px 200px;
-}
-
-#live-rinne-reaction-img::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-image: url("../images/misc_sprites/live_rinne_reaction_sprite.png");
-  background-size: 220px 220px;
-  animation: rotateRinne 1s linear 0s infinite forwards alternate;
+  height: 139px;
+  background-image: url("../images/misc_sprites/live_rinne_cam.png");
+  background-size: 200px 139px;
 }
 
 #live-rinne-reaction-txt {
