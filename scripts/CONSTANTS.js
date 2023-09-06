@@ -1,3 +1,6 @@
+// strings
+export const localStorageString = "CAFE_SHIINAMON_GAME";
+
 // bigger divs
 export const CONTAINER = document.getElementById("container");
 export const CG_BOX = document.getElementById("cg-overlay");

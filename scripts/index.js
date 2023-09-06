@@ -2,11 +2,11 @@ import GameSession from "./GameSession.js";
 import { FoodList } from "./Food.js";
 import { ACHIEVEMENT_OVERLAY, ACHIEVEMENT_OVERLAY_CLOSE, ACHIEVEMENT_OVERLAY_CONTAINER, ACHIEVEMENT_SETTING_BUTTON, ACHIEVEMENT_TEXT, ACHIEVEMENT_TOOLTIP, 
         ACHIEVEMENT_X, GAME_BOX, INFO_CLOSE, INFO_OVERLAY, INFO_OVERLAY_CONTAINER, INFO_SETTING_BUTTON, LOADER, MONEY_CONTAINER, MONEY_LABEL, NIKI, 
-        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES, NEW_GAME_BUTTON, START_SCREEN, CG_BOX, GAME_CONTAINER, BGM, SETTINGS_OVERLAY_CONTAINER, SETTINGS_OVERLAY, SETTINGS_CLOSE, VOICE_LINE_SLIDER, BGM_SLIDER } from "./CONSTANTS.js";
+        RINNE_BUTTON, SERVE_BUTTON, SETTINGS_SETTING_BUTTON, STOMACH_BAR, TEXTBOX_NEXT, VOICE_LINES, NEW_GAME_BUTTON, START_SCREEN, CG_BOX, GAME_CONTAINER, BGM, SETTINGS_OVERLAY_CONTAINER, SETTINGS_OVERLAY, SETTINGS_CLOSE, VOICE_LINE_SLIDER, BGM_SLIDER, localStorageString } from "./CONSTANTS.js";
 import { CutsceneList } from "./Cutscene.js";
 import Settings from "./Settings.js";
 
-const GAME = new GameSession();
+let GAME = new GameSession(JSON.parse(localStorage.getItem(localStorageString)));
 const GAME_SETTINGS = new Settings();
 
 function initGame() {
@@ -86,6 +86,10 @@ function initGame() {
 //   }, 3000);
 // }
 
+function saveGame(game) {
+  localStorage.setItem(localStorageString, JSON.stringify(game));
+}
+
 document.addEventListener("readystatechange", (e) => {
   if (e.target.readyState !== "complete") {
     GAME_BOX.style.display = "none";
@@ -124,6 +128,11 @@ document.addEventListener("readystatechange", (e) => {
       GAME_SETTINGS.adjustBgmVolume();
     })
     NEW_GAME_BUTTON.addEventListener("click", () => {
+      if (localStorage.getItem(localStorageString) && localStorage.getItem(localStorageString).length > 0) {
+        localStorage.removeItem(localStorageString);
+      }
+      localStorage.setItem(localStorageString, JSON.stringify(new GameSession()));
+      GAME = JSON.parse(localStorage.getItem(localStorageString));
       initGame();
       if (GAME.session.showCG) {
         if (!BGM.paused) BGM.pause();

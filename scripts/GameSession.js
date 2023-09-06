@@ -30,8 +30,8 @@ class GameSession {
   }
 
   // if no save is found
-  constructor() {
-    this.session = this.default_session;
+  constructor(saveString) {
+    this.session = saveString ? JSON.parse(saveString) : this.default_session;
     this.currentCutscene = CutsceneList[this.session.currentCGIndex];
   }
 
@@ -524,15 +524,11 @@ class GameSession {
     const index = this.session.foodTypesServed.findIndex(type => type.foodId === food.index);
     this.session.foodTypesServed[index].amtServed++; 
     this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 10, 1);
-    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 50, 2);
     this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 100, 3);
-    this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 200, 4);
     this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 500, 5);
     this.unlockAchievement(this.session.foodTypesServed[0].amtServed >= 1000, 6);
     this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 10, 7);
-    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 50, 8);
     this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 100, 9);
-    this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 200, 10);
     this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 500, 11);
     this.unlockAchievement(this.session.foodTypesServed[1].amtServed >= 1000, 12);
   }
@@ -548,7 +544,6 @@ class GameSession {
         this.addFoodTypeServed(food);
         this.removeFromFoodQueue();
         this.session.customersServed++;
-        this.unlockAchievement(this.session.customersServed >= 5, 19);
         this.unlockAchievement(this.session.customersServed >= 100, 20);
         this.unlockAchievement(this.session.customersServed >= 1000, 21);
         this.unlockAchievement(this.session.customersServed >= 5000, 22);
@@ -616,7 +611,6 @@ class GameSession {
     this.incrementMoney(food.sell);
     this.addFoodTypeServed(food);
     this.session.customersServed++;
-    this.unlockAchievement(this.session.customersServed >= 5, 19);
     this.unlockAchievement(this.session.customersServed >= 100, 20);
     this.unlockAchievement(this.session.customersServed >= 1000, 21);
     this.unlockAchievement(this.session.customersServed >= 5000, 22);

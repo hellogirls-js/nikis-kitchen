@@ -46,15 +46,11 @@ export class Achievement {
 
 export const FoodAchievements = [
   new Achievement(1, "Eat fresh!", "Serve 10 sandwiches"), 
-  new Achievement(2, "Jimmy John's", "Serve 50 sandwiches"), 
-  new Achievement(3, "Quiznos", "Serve 100 sandwiches"),
-  new Achievement(4, "Firehouse Subs", "Serve 200 sandwiches"),
+  new Achievement(3, "Jimmy John's", "Serve 100 sandwiches"),
   new Achievement(5, "Potbelly", "Serve 500 sandwiches"),
   new Achievement(6, "Subway has gone out of business", "Serve 1000 sandwiches"),
   new Achievement(7, "Poppin' off", "Sell 10 bottles of soda"),
-  new Achievement(8, "Is it soda, pop, or coke?", "Sell 50 bottles of soda"),
   new Achievement(9, "One hundred bottles of pop on the wall", "Sell 100 bottles of soda"),
-  new Achievement(10, "Micky D's Sprite connoisseur", "Sell 200 bottles of soda"),
   new Achievement(11, "Baja Blast super-fan", "Sell 500 bottles of soda"),
   new Achievement(12, "Coca-Cola factory", "Sell 1000 bottles of soda")
 ];
@@ -69,7 +65,6 @@ export const MoneyAchievements = [
 ];
 
 export const ServeAchievements = [
-  new Achievement(19, "At your service!", "Serve 5 customers"),
   new Achievement(20, "Could I get a smile with that?", "Serve 100 customers"),
   new Achievement(21, "This is way over my paygrade.", "Serve 1000 customers"),
   new Achievement(22, "Can I take a lunch break?", "Serve 5000 customers"),
@@ -82,7 +77,7 @@ export const FeedAchievements = [
   new Achievement(26, "Almost full... Almost.", "Feed Niki 500 times"),
   new Achievement(27, "Pro Tamagotchi owner", "Feed Niki 1000 times"),
   new Achievement(28, "Thank you for taking care of Niki!", "Feed Niki 5000 times"),
-  new Achievement(29, "Starving child starving to death.", "Let Niki's stomach empty"),
+  new Achievement(29, "Ough...", "Let Niki's stomach empty"),
   new Achievement(30, "Peanut Butter Jelly Time", "Feed Niki 10 sandwiches"),
   new Achievement(31, "Is this enough to make a footlong?", "Feed Niki 100 sandwiches"),
   new Achievement(32, "What *is* in this sandwich?", "Feed Niki 500 sandwiches"),
